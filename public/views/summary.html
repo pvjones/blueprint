@@ -18,13 +18,18 @@
   </div>
 
   <div class="row u-full-width">
-    <div class="container filter-by">
-      <div class="four columns">
-        <input type="text" placeholder="Filter your results..." ng-model="FilterService.searchTerm" ng-change="triggerFilter('search')" />
-      </div>
-      <div class="four columns">
-        <div class="button" ng-click="triggerFilter('healthAlert')">
-          Show Health Alerts
+    <div class="container">
+      <div class="flex-row filter-by">
+        <div class="flex-row health-alert">
+          <div class="button" ng-click="triggerFilter('healthAlert')" ng-class="{ 'show-button' : !healthAlertSet }">
+            Health Alerts
+          </div>
+          <div class="button active-button" ng-click="triggerFilter()" ng-class="{ 'show-button' : healthAlertSet }">
+            <i class="fa fa-check" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="flex-row text-filter">
+          <input type="text" placeholder="Filter your results..." ng-model="FilterService.searchTerm" ng-change="triggerFilter('search')" />
         </div>
       </div>
     </div>

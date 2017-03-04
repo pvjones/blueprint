@@ -10,11 +10,11 @@
     $scope.userId = user.userId;
     $scope.ddSelectSelected = {
       display: 'No Genomes Uploaded'
-    }
+    };
 
     $scope.$watch('ddSelectSelected', (ddSelectSelected) => {
       console.log("SELECTED GENOME", ddSelectSelected)
-    })
+    });
 
     let getGenomeResults = (userId) => {
       return ResultsService.getResultsByUserId(userId)
@@ -42,7 +42,7 @@
       })
       .catch((err) => {
         console.log(err)
-      })
+      });
 
     function transformData(response) {
       if (response) {
@@ -52,12 +52,17 @@
 
         })
       }
-    }
+    };
 
+    $scope.healthAlertSet = false
     $scope.triggerFilter = (filterName) => {
-      console.log('filterName', filterName);
+
+      if (filterName !== 'search') {
+        $scope.healthAlertSet = ($scope.healthAlertSet) ? false : true;
+      };
+
       FilterService.setFilter(filterName);
-    }
+    };
 
   }; // END OF CTRL FUNC
 })(); // END OF IIFE

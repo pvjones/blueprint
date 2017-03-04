@@ -93,7 +93,7 @@ div .title a {
 }
 
 div.menu-item {
-  padding: 20px;
+  padding: 20px 40px 20px 0px;
 }
 
 div.menu-item:active {
@@ -125,9 +125,6 @@ div.show-button {
   width: 100vw;
   background-color: rgba(240, 243, 246, 0.9);
   border-bottom: 1px solid rgba(0, 74, 113, 0.2);
-    div.menu-item {
-      padding: 10px;
-    }
 }
 
 .fixed {
@@ -198,7 +195,7 @@ input[disabled] + label:hover {
   position: absolute;
   bottom: 100px;
   right: 10px;
-  width: 250px;
+  width: 190px;
   opacity: 0.4;
   height: 100%;
   img {
@@ -209,8 +206,8 @@ input[disabled] + label:hover {
 
 .helix-marks {
   position: absolute;
-  bottom: -30px;
-  right: 200px;
+  bottom: 40px;
+  right: 150px;
   width: 50px;
   opacity: 0.3;
   height: 100%;
@@ -220,11 +217,11 @@ input[disabled] + label:hover {
   }
 }
 
-.circles-side {
+.backbone {
   position: absolute;
   bottom: 0px;
-  left: -80px;
-  width: 250px;
+  left: 20px;
+  width: 150px;
   opacity: 0.3;
   height: 100%;
   img {
@@ -233,6 +230,65 @@ input[disabled] + label:hover {
   }
 }
 
+.circles {
+  position: absolute;
+  bottom: -20px;
+  width: calc(100%/1.7);
+  opacity: 0.25;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.auth-button {
+  z-index: 1;
+}
+
+.helix2 {
+  position: absolute;
+  top: -400px;
+  right: 10px;
+  width: 190px;
+  opacity: 0.4;
+  height: 100%;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.backbone2 {
+  position: absolute;
+  top: -400px;
+  left: 20px;
+  width: 150px;
+  opacity: 0.3;
+  height: 100%;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.circles2 {
+
+  img {
+    -moz-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+    width: 100%;
+    height: auto;
+  }
+
+  position: absolute;
+  top: -220px;
+  width: calc(100%/1.7);
+  opacity: 0.25;
+
+}
 
 
 /* ABOUT STYLES
@@ -240,22 +296,45 @@ input[disabled] + label:hover {
 
 .about {
   min-height: 300px;
-  padding: 70px 50px;
+  padding: 45px 30px;
   margin-top: 20px;
   font-family: 'ProximaNova Condensed Light';
   font-size: 2rem;
   color: #444;
   text-align: justify;
-  justify-content: space-between;
 
-  .title {
-    text-transform: uppercase;
-    text-align: center;
-    font-family: 'ProximaNova Condensed Semibold';
-  }
   .row {
     width: 70%;
   }
+}
+
+.about2 {
+
+  min-height: 300px;
+  padding: 80px 30px;
+  margin-top: 20px;
+  font-family: 'ProximaNova Condensed Light';
+  font-size: 2rem;
+
+  position:relative;
+  background-color: #004a71;
+  color: white;
+  overflow-x: hidden;
+  overflow-y: hidden;
+
+  .row {
+    width: 70%;
+  }
+  p {
+    text-align: justify !important;
+  }
+}
+
+.about-subtitle {
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 15px;
+  font-family: 'ProximaNova Regular Condensed';
 }
 
 .spacer-border {
@@ -318,34 +397,6 @@ input[disabled] + label:hover {
   .row {
     text-align: center;
     font-size: 4rem;
-  }
-}
-
-.guanine {
-  position: absolute;
-  top: 50px;
-  right: -450px;
-  width: 250px;
-  opacity: 0.5;
-  height: 100%;
-  z-index: -1;
-  img {
-    width: 100%;
-    height: auto;
-  }
-}
-
-.cytosine {
-  position: absolute;
-  top: 50px;
-  left: -450px;
-  width: 250px;
-  opacity: 0.5;
-  height: 100%;
-  z-index: -1;
-  img {
-    width: 100%;
-    height: auto;
   }
 }
 

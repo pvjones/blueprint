@@ -209,7 +209,7 @@
               .data(datasetMod2);
 
             series.enter().append('g')
-              .style('fill', (d, i) => {
+              .attr('fill', (d, i) => {
                 return colors(i);
               })
               .attr('fill-opacity', 0.6)
@@ -239,13 +239,10 @@
 
             let series2 = svg.append('g')
               .selectAll('g')
-              .data(snpVals);
+              .data([1]);
 
             series2.enter().append('g')
-              .attr('fill', 'red')
-              .attr('stroke', '#004a71')
-              .attr('stroke-width', 1)
-              .attr('opacity', 0.8)
+              
 
             let rects2 = series2.selectAll('rect')
               .data(snpVals);
@@ -257,24 +254,28 @@
               })
               .attr('height', 40)
               .attr('width', 4)
+              .attr('fill', 'red')
+              .attr('stroke', '#004a71')
+              .attr('stroke-width', 1)
+              .attr('opacity', 0.8)
               
-            // rects2.enter().append("text")
-            //   .attr("class", "map-text")
-            //   .attr("x", (d) => {
-            //     return xScale(d.totalPosition) + 5
-            //   })
-            //   .attr("y", 45)
-            //   .attr("dy", ".35em")
-            //   .text((d) => {
-            //     return d.rsid;
-            //   })
+            rects2.enter().append("text")
+              .attr("class", "map-text")
+              .attr("x", (d) => {
+                return xScale(d.totalPosition) + 5
+              })
+              .attr("y", 45)
+              .attr("dy", ".35em")
+              .text((d) => {
+                return d.rsid;
+              })
 
             d3.selectAll('.snp-line').call(tip)
             d3.selectAll('.snp-line')
               .on('mouseover', tip.show)
               .on('mouseout', tip.hide)
 
-            // overlap();
+            overlap();
 
           }; //END OF UPDATE FUNCTION
 
@@ -301,41 +302,41 @@
             return position;
           };
 
-          // function overlap() {
-          //   var move = 1;
-          //   while (move > 0) {
-          //     move=0;
-          //     d3.selectAll('.map-text')
-          //       .each(function() {
-          //         var that = this,
-          //           a = this.getBoundingClientRect();
-          //         console.log(a)
-          //         d3.selectAll('.map-text')
-          //           .each(function() {
-          //             if (this != that) {
-          //               var b = this.getBoundingClientRect();
-          //               if ((Math.abs(a.left - b.left) * 2 < (a.width + b.width)) &&
-          //                 (Math.abs(a.top - b.top) * 2 < (a.height + b.height))) {
-          //                 // overlap, move labels
-          //                 var dx = (Math.max(0, a.right - b.left) +
-          //                     Math.min(0, a.left - b.right)) * 0.01,
-          //                   dy = (Math.max(0, a.bottom - b.top) +
-          //                     Math.min(0, a.top - b.bottom)) * 0.02,
-          //                   tt = d3.transform(d3.select(this).attr("transform")),
-          //                   to = d3.transform(d3.select(that).attr("transform"));
-          //                 move += Math.abs(dx) + Math.abs(dy);
+          function overlap() {
+            var move = 1;
+            while (move > 0) {
+              move=0;
+              d3.selectAll('.map-text')
+                .each(function() {
+                  var that = this,
+                    a = this.getBoundingClientRect();
+                  console.log(a)
+                  d3.selectAll('.map-text')
+                    .each(function() {
+                      if (this != that) {
+                        var b = this.getBoundingClientRect();
+                        if ((Math.abs(a.left - b.left) * 2 < (a.width + b.width)) &&
+                          (Math.abs(a.top - b.top) * 2 < (a.height + b.height))) {
+                          // overlap, move labels
+                          var dx = (Math.max(0, a.right - b.left) +
+                              Math.min(0, a.left - b.right)) * 0.01,
+                            dy = (Math.max(0, a.bottom - b.top) +
+                              Math.min(0, a.top - b.bottom)) * 0.02,
+                            tt = d3.transform(d3.select(this).attr("transform")),
+                            to = d3.transform(d3.select(that).attr("transform"));
+                          move += Math.abs(dx) + Math.abs(dy);
 
-          //                 to.translate = [to.translate[0] + dx, to.translate[1] + dy];
-          //                 tt.translate = [tt.translate[0] - dx, tt.translate[1] - dy];
-          //                 d3.select(this).attr("transform", "translate(" + tt.translate + ")");
-          //                 d3.select(that).attr("transform", "translate(" + to.translate + ")");
-          //                 a = this.getBoundingClientRect();
-          //               }
-          //             }
-          //           })
-          //       })
-          //   }
-          // }
+                          to.translate = [to.translate[0] + dx, to.translate[1] + dy];
+                          tt.translate = [tt.translate[0] - dx, tt.translate[1] - dy];
+                          d3.select(this).attr("transform", "translate(" + tt.translate + ")");
+                          d3.select(that).attr("transform", "translate(" + to.translate + ")");
+                          a = this.getBoundingClientRect();
+                        }
+                      }
+                    })
+                })
+            }
+          }
 
         } //end of link
     };

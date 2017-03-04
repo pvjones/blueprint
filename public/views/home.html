@@ -10,16 +10,16 @@
     <div class="centered">
       <h5>In depth, free, and anonymous</h5>
     </div>
-    <div class="hide-button" ng-class="{'show-button' : !isAuthed}">
+    <div class="auth-button hide-button" ng-class="{'show-button' : !isAuthed}">
       <a href="/api/auth">
         <div class="button button-white">Get Started</div>
       </a>
     </div>
-    <div class="hide-button" ng-class="{'show-button' : isAuthed}">
+    <div class="auth-button hide-button" ng-class="{'show-button' : isAuthed}">
       <div class="button button-white" ui-sref="summary">Enter</div>
     </div>
-    <div class="circles-side">
-      <img src="./../images/circles-side.png">
+    <div class="backbone">
+      <img src="./../images/backbone.png">
     </div>
     <div class="helix-marks">
       <img src="./../images/helix-sketch-marks.png">
@@ -27,17 +27,44 @@
     <div class="helix">
       <img src="./../images/helix-sketch.png">
     </div>
+    <div class="circles">
+      <img src="./../images/circles.png">
+    </div>
 </div>
 
 <div class="container flex-column centered about" id="about">
-    <div class="row title">
-      <h4><em>What you'll find</em></h4>
+    <div class="row about-subtitle">
+      <h4>What <span class="color-pop">you'll learn</span></h4>
     </div>
     <div class="row">
-      <p>Get informed with tools to help you explore your personal genome.</p>
-      <p>Your DNA will be tested against a curated list of the most well-evidenced genosets. Find major categories, filters, and favorites. You'll be able to instantly process and browse your data. Fast, secure, free, and anonymous.</p>
+      <p>Get informed with tools to help you understand your body and explore your personal genome.</p>
+      <p>Your DNA will be evaluated with a curated list of the most well-evidenced and researched genetic tests. After uploading your results from a supported DNA sequencing vendor, you'll be able to explore your results and find detailed descriptions, categories, and filters. Blueprint will instantly process and browse your data. It's fast, secure, free, and anonymous.</p>
     </div>
 </div> 
+
+<div class="row flex-column centered about2">
+  <div class="container flex-column centered">
+    <div class="row about-subtitle">
+      <h4>Your blueprint, and what it means</h4>
+    </div>
+    <div class="row">
+      <p>Your DNA contains many thousands of variations (also called SNPs or variants) that are unique to you. Most variants have no known or established effect. However, some can cause specific physical traits, or in some cases disease. These variants can be passed down from parent to child.</p>
+      <p>Genotyping tests from companies like 23andMe or AncestryDNA look at specific locations in your DNA and identify variants. These, combined with environmental factors, are make you unique.</p>
+      <p>We focus on certain variants known to be associated with important health conditions and traits. Tests like these are the first step towards understanding how your genetics can impact your life.</p>
+    </div>
+  </div>
+
+    <div class="backbone2">
+      <img src="./../images/backbone.png">
+    </div>
+    <div class="helix2">
+      <img src="./../images/helix-sketch.png">
+    </div>
+    <div class="circles2">
+      <img src="./../images/circles.png">
+    </div>
+</div>
+
 
 <div class="container centered spacer-border">
 </div>
@@ -45,9 +72,6 @@
 <div class="container about-items">
     <div class="row title">
       <h4>Results that <span class="color-pop">matter<span></h4>
-    </div>
-    <div class="guanine">
-      <img src="./../images/guanine.png">
     </div>
     <div class="row">
       <div class="one-third column about-item">
@@ -91,8 +115,5 @@
 <div class="container contact-us">
   <div class="row">
       <p>Feel free to <span class="color-pop">contact us</span> with questions</p>
-  </div>
-  <div class="cytosine">
-    <img src="./../images/cytosine.png">
   </div>
 </div>

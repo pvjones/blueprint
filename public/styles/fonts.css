@@ -23,6 +23,10 @@
   src: url('./../styles/fonts/ProximaNova-Light.woff') format('woff');
 }
 @font-face {
+  font-family: 'ProximaNova Regular Condensed';
+  src: url('./../styles/fonts/ProximaNovaCond-Regular.woff') format('woff');
+}
+@font-face {
   font-family: 'Verlag Light';
   src: url('./../styles/fonts/Verlag-Light.woff') format('woff');
 }

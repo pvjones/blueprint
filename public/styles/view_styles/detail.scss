@@ -29,10 +29,14 @@
 
   color: #004a71;
 
+  .detail-back {
+    padding: 15px 0px 3px 0px;
+  }
+
   .detail-subheader {
     display: flex;
     align-items: flex-end;
-    padding: 40px 0px 20px 0px;
+    padding: 0px 0px 20px 0px;
 
     .detail-title {
       font-size: 4rem;

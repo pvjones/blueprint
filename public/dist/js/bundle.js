@@ -399,29 +399,29 @@
   function HomeController($scope, user) {
 
     // Auth
-    console.log("user object returned", user);
     $scope.userName = user.userName;
     $scope.isAuthed = user.isAuthed;
 
     // Parallax scroll effects
-    $(window).on('scroll', function () {
+    d3.select(window).on('scroll', function () {
+
       var winScroll = $(this).scrollTop();
 
-      $('.helix').css({
-        'transform': 'translateY(-' + winScroll / 15 + '%)'
-      });
-      $('.helix-marks').css({
-        'transform': 'translate(-' + winScroll / 7 + '%, -' + winScroll / 15 + '%)'
-      });
-      $('.circles-side').css({
-        'transform': 'translateY(-' + winScroll / 15 + '%)'
-      });
-      $('.guanine').css({
-        'transform': 'translateX(-' + winScroll / 15 + '%)'
-      });
-      $('.cytosine').css({
-        'transform': 'translateX(+' + winScroll / 12 + '%)'
-      });
+      d3.select('.helix').style('transform', 'translateY(+' + winScroll / 15 + '%)');
+
+      d3.select('.helix-marks').style('transform', 'translate(-' + winScroll / 7 + '%, +' + winScroll / 15 + '%)');
+
+      d3.select('.backbone').style('transform', 'translateY(+' + winScroll / 15 + '%)');
+
+      d3.select('.cytosine').style('transform', 'translateX(+' + winScroll / 12 + '%)');
+
+      d3.select('.circles').style('transform', 'translateY(+' + winScroll / 12 + '%)');
+
+      d3.select('.circles2').style('transform', 'translateY(+' + winScroll / 12 + '%)');
+
+      d3.select('.helix2').style('transform', 'translateY(+' + winScroll / 15 + '%)');
+
+      d3.select('.backbone2').style('transform', 'translateY(+' + winScroll / 15 + '%)');
     });
   } // END OF CTRL FUNC
 })(); // END OF IIFE
@@ -450,7 +450,7 @@
 
     $(window).scroll(function () {
       var sticky = $('.sticky'),
-          scroll = $(window).scrollTop();
+          scroll = $(this).scrollTop();
       if (scroll >= 100) sticky.addClass('fixed');else sticky.removeClass('fixed');
     });
   } // END OF CTRL FUNC
@@ -528,14 +528,189 @@
           return elem;
         });
       }
-    }
+    };
 
+    $scope.healthAlertSet = false;
     $scope.triggerFilter = function (filterName) {
-      console.log('filterName', filterName);
+
+      if (filterName !== 'search') {
+        $scope.healthAlertSet = $scope.healthAlertSet ? false : true;
+      };
+
       FilterService.setFilter(filterName);
     };
   }; // END OF CTRL FUNC
 })(); // END OF IIFE
+'use strict';
+
+(function () {
+  angular.module('app').service('AuthService', AuthService);
+
+  function AuthService($http) {
+
+    this.getUser = function () {
+      return $http({
+        method: 'GET',
+        url: '/api/auth/user'
+      }).then(function (response) {
+        return response.data[0];
+      }).catch(function (err) {
+        throw new Error(err);
+      });
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('app').service('ChartResizeService', ChartResizeService);
+
+  function ChartResizeService() {
+
+    this.calculateElementWidth = function (element) {
+      if (!element.offsetWidth) {
+        return 0;
+      }
+      var style = window.getComputedStyle(element);
+      var width = element.offsetWidth;
+      return width;
+
+      console.log(style);
+    };
+  };
+})();
+'use strict';
+
+(function () {
+
+  angular.module('app').service('DetailService', DetailService);
+
+  function DetailService($http) {
+
+    this.getDetail = function (descriptionId) {
+      return $http({
+        method: 'GET',
+        url: '/api/getdetail/' + descriptionId
+      }).then(function (response) {
+        return response.data[0].detailobject;
+      }).catch(function (error) {
+        console.log(error);
+        throw new Error(error);
+      });
+    };
+  };
+})();
+'use strict';
+
+(function () {
+
+  angular.module('app').service('FilterService', FilterService);
+
+  function FilterService() {
+    this.filter = '';
+    this.searchTerm = '';
+
+    this.setFilter = function (filterName) {
+      switch (filterName) {
+        case 'search':
+          if (this.searchTerm && this.searchTerm.length > 0) {
+            this.filter = { resultname: this.searchTerm };
+          } else {
+            this.filter = '';
+          }
+          break;
+        case 'healthAlert':
+          this.filter = { resultbool: true, resultqual: 'negative' };
+          break;
+        case '':
+          this.filter = '';
+        default:
+          this.filter = '';
+      };
+    };
+  };
+})();
+'use strict';
+
+(function () {
+  angular.module('app').service('ResultsService', ResultsService);
+
+  function ResultsService($http) {
+
+    this.getResultsByUserId = function (userId) {
+      //console.log("service userId", userId)
+      return $http({
+        method: 'GET',
+        url: '/api/results/' + userId
+      }).then(function (response) {
+        //console.log('valid response from $http', response)
+        return response.data;
+      }).catch(function (err) {
+        console.log(err);
+        throw new Error(err);
+      });
+    };
+  }; // END OF SVC FUNC
+})(); // END OF IIFE
+'use strict';
+
+(function () {
+  angular.module('app').service('UploadService', UploadService);
+
+  function UploadService($http, $q) {
+
+    this.sendGenomeTXT = function (uploadTXT, genomeName) {
+      var deferred = $q.defer();
+      $http({
+        method: 'POST',
+        url: '/api/upload',
+        data: {
+          file: uploadTXT,
+          genomeName: genomeName
+        }
+      }).then(function (res) {
+        deferred.resolve(res.data);
+      }).catch(function (res) {
+        deferred.reject(res);
+      });
+      return deferred.promise;
+    };
+  } //END OF SVC FUNC
+})(); //END OF IIFE
+'use strict';
+
+(function () {
+
+  angular.module('app').service('ZygousityService', ZygousityService);
+
+  function ZygousityService() {
+
+    this.handleZygousity = function (categoryArray) {
+      var cleansedArray = categoryArray;
+
+      for (var i = cleansedArray.length - 1; i >= 0; i--) {
+
+        if (cleansedArray[i]) {
+
+          for (var j = i - 1; j >= 0; j--) {
+
+            if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[j].resultbool === true) {
+              cleansedArray.splice(i, 1);
+              break;
+            } else if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[i].resultbool === true) {
+              cleansedArray.splice(j, 1);
+              break;
+            } else if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[i].resultbool === false && cleansedArray[j].resultbool === false) {
+              cleansedArray.splice(j, 1);
+              break;
+            }
+          }
+        }
+      }
+      return cleansedArray;
+    };
+  };
+})();
 'use strict';
 
 (function () {
@@ -706,7 +881,7 @@
 
           var series = svg.append('g').attr('transform', 'translate(' + margins.left + ',' + margins.top + ')').selectAll('g').data(datasetMod2);
 
-          series.enter().append('g').style('fill', function (d, i) {
+          series.enter().append('g').attr('fill', function (d, i) {
             return colors(i);
           }).attr('fill-opacity', 0.6).style('stroke', function (d, i) {
             return colors(i);
@@ -726,31 +901,26 @@
 
           /////////
 
-          var series2 = svg.append('g').selectAll('g').data(snpVals);
+          var series2 = svg.append('g').selectAll('g').data([1]);
 
-          series2.enter().append('g').attr('fill', 'red').attr('stroke', '#004a71').attr('stroke-width', 1).attr('opacity', 0.8);
+          series2.enter().append('g');
 
           var rects2 = series2.selectAll('rect').data(snpVals);
 
           rects2.enter().append('rect').attr('class', 'snp-line').attr('x', function (d) {
             return xScale(d.totalPosition);
-          }).attr('height', 40).attr('width', 4);
+          }).attr('height', 40).attr('width', 4).attr('fill', 'red').attr('stroke', '#004a71').attr('stroke-width', 1).attr('opacity', 0.8);
 
-          // rects2.enter().append("text")
-          //   .attr("class", "map-text")
-          //   .attr("x", (d) => {
-          //     return xScale(d.totalPosition) + 5
-          //   })
-          //   .attr("y", 45)
-          //   .attr("dy", ".35em")
-          //   .text((d) => {
-          //     return d.rsid;
-          //   })
+          rects2.enter().append("text").attr("class", "map-text").attr("x", function (d) {
+            return xScale(d.totalPosition) + 5;
+          }).attr("y", 45).attr("dy", ".35em").text(function (d) {
+            return d.rsid;
+          });
 
           d3.selectAll('.snp-line').call(tip);
           d3.selectAll('.snp-line').on('mouseover', tip.show).on('mouseout', tip.hide);
 
-          // overlap();
+          overlap();
         }; //END OF UPDATE FUNCTION
 
         //UTILTIY FUNCTIONS
@@ -776,41 +946,36 @@
           return position;
         };
 
-        // function overlap() {
-        //   var move = 1;
-        //   while (move > 0) {
-        //     move=0;
-        //     d3.selectAll('.map-text')
-        //       .each(function() {
-        //         var that = this,
-        //           a = this.getBoundingClientRect();
-        //         console.log(a)
-        //         d3.selectAll('.map-text')
-        //           .each(function() {
-        //             if (this != that) {
-        //               var b = this.getBoundingClientRect();
-        //               if ((Math.abs(a.left - b.left) * 2 < (a.width + b.width)) &&
-        //                 (Math.abs(a.top - b.top) * 2 < (a.height + b.height))) {
-        //                 // overlap, move labels
-        //                 var dx = (Math.max(0, a.right - b.left) +
-        //                     Math.min(0, a.left - b.right)) * 0.01,
-        //                   dy = (Math.max(0, a.bottom - b.top) +
-        //                     Math.min(0, a.top - b.bottom)) * 0.02,
-        //                   tt = d3.transform(d3.select(this).attr("transform")),
-        //                   to = d3.transform(d3.select(that).attr("transform"));
-        //                 move += Math.abs(dx) + Math.abs(dy);
+        function overlap() {
+          var move = 1;
+          while (move > 0) {
+            move = 0;
+            d3.selectAll('.map-text').each(function () {
+              var that = this,
+                  a = this.getBoundingClientRect();
+              console.log(a);
+              d3.selectAll('.map-text').each(function () {
+                if (this != that) {
+                  var b = this.getBoundingClientRect();
+                  if (Math.abs(a.left - b.left) * 2 < a.width + b.width && Math.abs(a.top - b.top) * 2 < a.height + b.height) {
+                    // overlap, move labels
+                    var dx = (Math.max(0, a.right - b.left) + Math.min(0, a.left - b.right)) * 0.01,
+                        dy = (Math.max(0, a.bottom - b.top) + Math.min(0, a.top - b.bottom)) * 0.02,
+                        tt = d3.transform(d3.select(this).attr("transform")),
+                        to = d3.transform(d3.select(that).attr("transform"));
+                    move += Math.abs(dx) + Math.abs(dy);
 
-        //                 to.translate = [to.translate[0] + dx, to.translate[1] + dy];
-        //                 tt.translate = [tt.translate[0] - dx, tt.translate[1] - dy];
-        //                 d3.select(this).attr("transform", "translate(" + tt.translate + ")");
-        //                 d3.select(that).attr("transform", "translate(" + to.translate + ")");
-        //                 a = this.getBoundingClientRect();
-        //               }
-        //             }
-        //           })
-        //       })
-        //   }
-        // }
+                    to.translate = [to.translate[0] + dx, to.translate[1] + dy];
+                    tt.translate = [tt.translate[0] - dx, tt.translate[1] - dy];
+                    d3.select(this).attr("transform", "translate(" + tt.translate + ")");
+                    d3.select(that).attr("transform", "translate(" + to.translate + ")");
+                    a = this.getBoundingClientRect();
+                  }
+                }
+              });
+            });
+          }
+        }
       } //end of link
     };
   };
@@ -861,172 +1026,6 @@
           reader.readAsText((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
         });
       }
-    };
-  };
-})();
-'use strict';
-
-(function () {
-  angular.module('app').service('AuthService', AuthService);
-
-  function AuthService($http) {
-
-    this.getUser = function () {
-      return $http({
-        method: 'GET',
-        url: '/api/auth/user'
-      }).then(function (response) {
-        return response.data[0];
-      }).catch(function (err) {
-        throw new Error(err);
-      });
-    };
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('app').service('ChartResizeService', ChartResizeService);
-
-  function ChartResizeService() {
-
-    this.calculateElementWidth = function (element) {
-      if (!element.offsetWidth) {
-        return 0;
-      }
-      var style = window.getComputedStyle(element);
-      var width = element.offsetWidth;
-      return width;
-
-      console.log(style);
-    };
-  };
-})();
-'use strict';
-
-(function () {
-
-  angular.module('app').service('DetailService', DetailService);
-
-  function DetailService($http) {
-
-    this.getDetail = function (descriptionId) {
-      return $http({
-        method: 'GET',
-        url: '/api/getdetail/' + descriptionId
-      }).then(function (response) {
-        return response.data[0].detailobject;
-      }).catch(function (error) {
-        console.log(error);
-        throw new Error(error);
-      });
-    };
-  };
-})();
-'use strict';
-
-(function () {
-
-  angular.module('app').service('FilterService', FilterService);
-
-  function FilterService() {
-    this.filter = '';
-    this.searchTerm = '';
-
-    this.setFilter = function (filterName) {
-      switch (filterName) {
-        case 'search':
-          if (this.searchTerm && this.searchTerm.length > 0) {
-            this.filter = { resultname: this.searchTerm };
-          }
-          break;
-        case 'healthAlert':
-          this.filter = { resultbool: true, resultqual: 'negative' };
-          break;
-        default:
-          this.filter = '';
-      };
-    };
-  };
-})();
-'use strict';
-
-(function () {
-  angular.module('app').service('ResultsService', ResultsService);
-
-  function ResultsService($http) {
-
-    this.getResultsByUserId = function (userId) {
-      //console.log("service userId", userId)
-      return $http({
-        method: 'GET',
-        url: '/api/results/' + userId
-      }).then(function (response) {
-        //console.log('valid response from $http', response)
-        return response.data;
-      }).catch(function (err) {
-        console.log(err);
-        throw new Error(err);
-      });
-    };
-  }; // END OF SVC FUNC
-})(); // END OF IIFE
-'use strict';
-
-(function () {
-  angular.module('app').service('UploadService', UploadService);
-
-  function UploadService($http, $q) {
-
-    this.sendGenomeTXT = function (uploadTXT, genomeName) {
-      var deferred = $q.defer();
-      $http({
-        method: 'POST',
-        url: '/api/upload',
-        data: {
-          file: uploadTXT,
-          genomeName: genomeName
-        }
-      }).then(function (res) {
-        deferred.resolve(res.data);
-      }).catch(function (res) {
-        deferred.reject(res);
-      });
-      return deferred.promise;
-    };
-  } //END OF SVC FUNC
-})(); //END OF IIFE
-'use strict';
-
-(function () {
-
-  angular.module('app').service('ZygousityService', ZygousityService);
-
-  function ZygousityService() {
-
-    this.handleZygousity = function (categoryArray) {
-      var cleansedArray = categoryArray;
-
-      for (var i = cleansedArray.length - 1; i >= 0; i--) {
-
-        if (cleansedArray[i]) {
-
-          for (var j = i - 1; j >= 0; j--) {
-
-            if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[j].resultbool === true) {
-              cleansedArray.splice(i, 1);
-              break;
-            } else if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[i].resultbool === true) {
-              cleansedArray.splice(j, 1);
-              break;
-            } else if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[i].resultbool === false && cleansedArray[j].resultbool === false) {
-              cleansedArray.splice(j, 1);
-              break;
-            }
-          }
-        }
-      }
-      return cleansedArray;
     };
   };
 })();

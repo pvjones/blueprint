@@ -231,6 +231,10 @@
   src: url("./../styles/fonts/ProximaNova-Light.woff") format("woff"); }
 
 @font-face {
+  font-family: 'ProximaNova Regular Condensed';
+  src: url("./../styles/fonts/ProximaNovaCond-Regular.woff") format("woff"); }
+
+@font-face {
   font-family: 'Verlag Light';
   src: url("./../styles/fonts/Verlag-Light.woff") format("woff"); }
 
@@ -1090,10 +1094,12 @@ there.
 
 .detail {
   color: #004a71; }
+  .detail .detail-back {
+    padding: 15px 0px 3px 0px; }
   .detail .detail-subheader {
     display: flex;
     align-items: flex-end;
-    padding: 40px 0px 20px 0px; }
+    padding: 0px 0px 20px 0px; }
     .detail .detail-subheader .detail-title {
       font-size: 4rem;
       line-height: 5.3rem;
@@ -1224,7 +1230,7 @@ div .title a {
   color: #ff533a; }
 
 div.menu-item {
-  padding: 20px; }
+  padding: 20px 40px 20px 0px; }
 
 div.menu-item:active {
   background-color: rgba(240, 240, 240, 0.5); }
@@ -1250,8 +1256,6 @@ div.show-button {
   width: 100vw;
   background-color: rgba(240, 243, 246, 0.9);
   border-bottom: 1px solid rgba(0, 74, 113, 0.2); }
-  .sticky div.menu-item {
-    padding: 10px; }
 
 .fixed {
   position: fixed;
@@ -1305,7 +1309,7 @@ input[disabled] + label:hover {
   position: absolute;
   bottom: 100px;
   right: 10px;
-  width: 250px;
+  width: 190px;
   opacity: 0.4;
   height: 100%; }
   .helix img {
@@ -1314,8 +1318,8 @@ input[disabled] + label:hover {
 
 .helix-marks {
   position: absolute;
-  bottom: -30px;
-  right: 200px;
+  bottom: 40px;
+  right: 150px;
   width: 50px;
   opacity: 0.3;
   height: 100%; }
@@ -1323,14 +1327,61 @@ input[disabled] + label:hover {
     width: 100%;
     height: auto; }
 
-.circles-side {
+.backbone {
   position: absolute;
   bottom: 0px;
-  left: -80px;
-  width: 250px;
+  left: 20px;
+  width: 150px;
   opacity: 0.3;
   height: 100%; }
-  .circles-side img {
+  .backbone img {
+    width: 100%;
+    height: auto; }
+
+.circles {
+  position: absolute;
+  bottom: -20px;
+  width: calc(100%/1.7);
+  opacity: 0.25; }
+  .circles img {
+    width: 100%;
+    height: auto; }
+
+.auth-button {
+  z-index: 1; }
+
+.helix2 {
+  position: absolute;
+  top: -400px;
+  right: 10px;
+  width: 190px;
+  opacity: 0.4;
+  height: 100%; }
+  .helix2 img {
+    width: 100%;
+    height: auto; }
+
+.backbone2 {
+  position: absolute;
+  top: -400px;
+  left: 20px;
+  width: 150px;
+  opacity: 0.3;
+  height: 100%; }
+  .backbone2 img {
+    width: 100%;
+    height: auto; }
+
+.circles2 {
+  position: absolute;
+  top: -220px;
+  width: calc(100%/1.7);
+  opacity: 0.25; }
+  .circles2 img {
+    -moz-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
     width: 100%;
     height: auto; }
 
@@ -1338,19 +1389,36 @@ input[disabled] + label:hover {
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .about {
   min-height: 300px;
-  padding: 70px 50px;
+  padding: 45px 30px;
   margin-top: 20px;
   font-family: 'ProximaNova Condensed Light';
   font-size: 2rem;
   color: #444;
-  text-align: justify;
-  justify-content: space-between; }
-  .about .title {
-    text-transform: uppercase;
-    text-align: center;
-    font-family: 'ProximaNova Condensed Semibold'; }
+  text-align: justify; }
   .about .row {
     width: 70%; }
+
+.about2 {
+  min-height: 300px;
+  padding: 80px 30px;
+  margin-top: 20px;
+  font-family: 'ProximaNova Condensed Light';
+  font-size: 2rem;
+  position: relative;
+  background-color: #004a71;
+  color: white;
+  overflow-x: hidden;
+  overflow-y: hidden; }
+  .about2 .row {
+    width: 70%; }
+  .about2 p {
+    text-align: justify !important; }
+
+.about-subtitle {
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 15px;
+  font-family: 'ProximaNova Regular Condensed'; }
 
 .spacer-border {
   width: 52%;
@@ -1398,30 +1466,6 @@ input[disabled] + label:hover {
   .contact-us .row {
     text-align: center;
     font-size: 4rem; }
-
-.guanine {
-  position: absolute;
-  top: 50px;
-  right: -450px;
-  width: 250px;
-  opacity: 0.5;
-  height: 100%;
-  z-index: -1; }
-  .guanine img {
-    width: 100%;
-    height: auto; }
-
-.cytosine {
-  position: absolute;
-  top: 50px;
-  left: -450px;
-  width: 250px;
-  opacity: 0.5;
-  height: 100%;
-  z-index: -1; }
-  .cytosine img {
-    width: 100%;
-    height: auto; }
 
 .well.ng-enter {
   transform: translateY(100%); }
@@ -1601,11 +1645,21 @@ input[disabled] + label:hover {
 
 .filter-by {
   padding: 15px 15px 0px 0px; }
+  .filter-by div.button {
+    display: none; }
+  .filter-by div.show-button {
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+  .filter-by div.active-button {
+    background-color: #ff533a;
+    color: white; }
+  .filter-by div.health-alert {
+    margin-right: 20px; }
   .filter-by input {
     margin: 0px;
     color: #8AA8BD; }
   .filter-by input[type="text"]::-webkit-input-placeholder {
-    color: orange;
     padding-top: 10px;
     font-family: 'ProximaNova Condensed Light'; }
 
@@ -1624,7 +1678,6 @@ div.category-container div:nth-child(odd) {
   margin-left: 0px !important; }
 
 div.category-container {
-  padding-top: 20px;
   padding-bottom: 100px; }
   div.category-container .category-title {
     padding: 5px 15px;
@@ -1642,16 +1695,13 @@ div.category-container {
     font-size: 2rem;
     background-color: rgba(0, 54, 113, 0.04); }
   div.category-container .table-body {
-    max-height: 300px;
+    max-height: 286px;
+    min-height: 286px;
     overflow: auto; }
   div.category-container .scroll-for-more {
-    padding: 15px;
-    padding: 15px;
-    font-size: 1.4rem;
-    font-family: 'ProximaNova Condensed Light';
-    text-transform: uppercase;
-    color: #0FA0CE;
-    text-align: right; }
+    height: 10px;
+    background: rgba(0, 74, 113, 0.05);
+    border-bottom: 3px solid rgba(0, 74, 113, 0.3); }
 
 /* SPECIFIC TO MAIN SUMMARY VIEW */
 .summary .genoset-name {
@@ -1660,6 +1710,7 @@ div.category-container {
 /* ALL RESULTS */
 .summary-all-results .table-body {
   padding-bottom: 50px;
+  min-height: 0px !important;
   max-height: none !important; }
 
 .summary-all-results .category-table .table-cell {
@@ -1670,5 +1721,8 @@ div.category-container {
 
 .summary-all-results .category-table .result {
   text-align: right; }
+
+.summary-all-results .scroll-for-more {
+  display: none; }
 
 /*# sourceMappingURL=public/maps/styles.css.map */

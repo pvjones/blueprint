@@ -27,13 +27,35 @@
 .filter-by {
   padding: 15px 15px 0px 0px;
 
+  div.button {
+    display:none;
+  }
+
+  div.show-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  div.active-button {
+    background-color: #ff533a;
+    color: white;
+  }
+
+  div.health-alert {
+    margin-right: 20px;
+  }
+
+  .text-filter {
+
+  }
+
   input {
     margin: 0px;
     color: #8AA8BD;
   }
 
   input[type="text"]::-webkit-input-placeholder {
-    color: orange;
     padding-top:10px;
     font-family: 'ProximaNova Condensed Light'
   }
@@ -63,7 +85,6 @@ div.category-container div:nth-child(odd) {
 
 div.category-container {
 
-  padding-top: 20px;
   padding-bottom: 100px;
 
   .category-title {
@@ -89,18 +110,15 @@ div.category-container {
   }
 
   .table-body {
-    max-height: 300px;
+    max-height: 286px;
+    min-height: 286px;
     overflow: auto;
   }
 
   .scroll-for-more {
-    padding: 15px;
-    padding: 15px;
-    font-size: 1.4rem;
-    font-family: 'ProximaNova Condensed Light';
-    text-transform: uppercase;
-    color: #0FA0CE;
-    text-align: right;
+    height: 10px;
+    background: rgba(0, 74, 113, 0.05);
+    border-bottom: 3px solid rgba(0, 74, 113, 0.3);
   }
 }
 
@@ -118,6 +136,7 @@ div.category-container {
 
   .table-body {
     padding-bottom: 50px;
+    min-height: 0px !important;
     max-height: none !important;
   }
 
@@ -131,6 +150,10 @@ div.category-container {
     .result {
       text-align: right;
     }
+  }
+
+  .scroll-for-more {
+    display:none;
   }
 }
 

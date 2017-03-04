@@ -6,29 +6,38 @@
   function HomeController($scope, user) {
 
     // Auth
-    console.log("user object returned", user)
     $scope.userName = user.userName;
     $scope.isAuthed = user.isAuthed;
 
     // Parallax scroll effects
-    $(window).on('scroll', function() {
-      var winScroll = $(this).scrollTop();
+    d3.select(window)
+      .on('scroll', function() {
 
-      $('.helix').css({
-        'transform': 'translateY(-' + winScroll / 15 + '%)'
-      });
-      $('.helix-marks').css({
-        'transform': 'translate(-' + winScroll / 7 + '%, -' + winScroll / 15 + '%)'
-      });
-      $('.circles-side').css({
-        'transform': 'translateY(-' + winScroll / 15 + '%)'
-      });
-      $('.guanine').css({
-        'transform': 'translateX(-' + winScroll / 15 + '%)'
-      });
-      $('.cytosine').css({
-        'transform': 'translateX(+' + winScroll / 12 + '%)'
-      });
+      let winScroll = $(this).scrollTop();
+
+      d3.select('.helix')
+        .style('transform',`translateY(+${winScroll / 15}%)`);
+
+      d3.select('.helix-marks')
+        .style('transform', `translate(-${winScroll / 7}%, +${winScroll / 15}%)`);
+
+      d3.select('.backbone')
+        .style('transform', `translateY(+${winScroll / 15}%)`);
+
+      d3.select('.cytosine')
+        .style('transform', `translateX(+${winScroll / 12}%)`);
+
+      d3.select('.circles')
+        .style('transform', `translateY(+${winScroll / 12}%)`);
+
+      d3.select('.circles2')
+        .style('transform', `translateY(+${winScroll / 12}%)`);
+
+      d3.select('.helix2')
+        .style('transform', `translateY(+${winScroll / 15}%)`);
+
+      d3.select('.backbone2')
+        .style('transform', `translateY(+${winScroll / 15}%)`);
     });
 
   } // END OF CTRL FUNC

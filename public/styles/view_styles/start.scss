@@ -60,7 +60,7 @@
   display:flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(60, 110, 154, .5);
   border: 1px solid rgba(255, 255, 255, 0.5);
 
     h5 {
@@ -172,7 +172,7 @@
     top: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 40, 70, 0.8);
+    background-color: rgba(0, 40, 70, 0.9);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -209,9 +209,14 @@
       text-align: center;
       justify-content: center;
       align-items: center;
-      background-color: rgba(0, 74, 113, 1);
-      border: 2px solid white;
+      background-color: rgba(50, 89, 134, .78);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      color: rgba(255,255,255,0.87);
       border-radius: 3px;
+
+      .upload-title {
+        margin-top: -12px;
+      }
 
       .icon-container {
         font-size: 4rem;
@@ -219,10 +224,26 @@
 
       .upload-message {
         width: 66%;
-        text-align: justify;
-        font-size: 2rem;
+        text-align: left;
+        font-family: 'ProximaNova Condensed Light';
+        font-size: 2.1rem;
         line-height: 2.3rem;
       }
 
+      .error-message {
+        padding: 20px 0px;
+        width: 66%;
+        text-align: left;
+        font-family: 'ProximaNova Condensed Light';
+        font-size: 2.1rem;
+        line-height: 2.3rem;
+      }
+
+      .button {
+        margin: 10px 0px 0px 0px;
+      }
+
   }
+
+
 }

@@ -470,17 +470,28 @@
   function StartController($scope, $state, UploadService, user) {
 
     $scope.username = user.userName;
+    $scope.showModal = false;
+    $scope.showProcessing = true;
+    $scope.showError = false;
 
     $scope.uploadGenomeTXT = function (TXT, genomeName) {
+
       if (TXT && $scope.genomeName) {
-        $scope.showUpload = true;
+        $scope.showModal = true;
         UploadService.sendGenomeTXT(TXT, genomeName).then(function (response) {
-          console.log(response);
           $state.go('summary');
         }, function (err) {
-          return console.log(err);
+          console.log(err);
+          $scope.showProcessing = false;
+          $scope.showError = true;
         });
       }
+    };
+
+    $scope.resetModal = function () {
+      $scope.showModal = false;
+      $scope.showProcessing = true;
+      $scope.showError = false;
     };
   } // END OF CONTROLLER FUNCTION
 })(); // END OF IIFE
@@ -854,7 +865,9 @@
       restrict: 'A',
       scope: false,
       link: function link(scope, element, attrs) {
+
         var fn = $parse(attrs.onReadFile);
+
         element.on('change', function (onChangeEvent) {
           var reader = new FileReader();
           reader.onload = function (onLoadEvent) {
@@ -864,9 +877,11 @@
               });
             });
           };
+
           reader.readAsText((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
         });
       }
+
     };
   };
 })();

@@ -47,16 +47,14 @@
       </div>
 
   </div> 
-
-    <div class="helix">
-      <img src="./../images/helix-sketch.png">
-    </div>
-
+  <div class="helix">
+    <img src="./../images/helix-sketch.png">
+  </div>
 </div>
 
 <!-- UPLOAD MODAL -->
-<div class="upload-message-background" ng-show="showUpload" ng-cloak>
-  <div class="upload-message-box flex-column">
+<div class="upload-message-background" ng-show="showModal" ng-cloak>
+  <div class="upload-message-box flex-column" ng-show="showProcessing">
     <div class="upload-title">
       <span>Uploading and Processing<br /></span>
       <span class="big-caps">Your results</span>
@@ -69,6 +67,15 @@
     <div class="upload-message flex-column">
       <span>Please wait: this is a data-intensive process, and may take a few minutes.</span>
     </div>
+  </div>
+  <div class="upload-message-box flex-column" ng-show="showError">
+    <div class="upload-title">
+      <span class="big-caps">We're sorry</span>
+    </div>
+    <div class="error-message flex-column">
+      <span>There was a problem uploading and processing your file. Please make sure it's a TXT file from a supported vendor.</span>
+    </div>
+    <div class="button button-white" ng-click="resetModal()">Try again</div>
   </div>
 </div>
 

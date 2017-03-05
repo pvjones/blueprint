@@ -7,17 +7,30 @@
   function StartController($scope, $state, UploadService, user) {
 
     $scope.username = user.userName;
+    $scope.showModal = false;
+    $scope.showProcessing = true;
+    $scope.showError = false;
 
-    $scope.uploadGenomeTXT = function(TXT, genomeName) {
-        if (TXT && $scope.genomeName) {
-          $scope.showUpload = true;
-          UploadService.sendGenomeTXT(TXT, genomeName)
-            .then((response) => {
-              console.log(response);
-              $state.go('summary');
-            }, (err) => console.log(err))
-        }
+    $scope.uploadGenomeTXT = (TXT, genomeName) => {
+
+      if (TXT && $scope.genomeName) {
+        $scope.showModal = true;
+        UploadService.sendGenomeTXT(TXT, genomeName)
+          .then((response) => {
+            $state.go('summary');
+          }, (err) => {
+            console.log(err)
+            $scope.showProcessing = false;
+            $scope.showError = true;
+          })
       }
-    
+    }
+
+    $scope.resetModal = () => {
+      $scope.showModal = false;
+      $scope.showProcessing = true;
+      $scope.showError = false;
+    }
+
   } // END OF CONTROLLER FUNCTION
 })(); // END OF IIFE

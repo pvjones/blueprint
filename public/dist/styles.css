@@ -1069,7 +1069,7 @@ there.
 /* Larger than Desktop HD */
 
 .d3-tip {
-  margin-top: -10px;
+  margin-top: -12px;
   font-size: 1.5rem;
   font-family: 'ProximaNova Condensed Light';
   padding: 12px;
@@ -1088,9 +1088,18 @@ there.
   color: rgba(0, 74, 110, 0.7);
   content: "\25BC";
   position: absolute;
-  top: 88px;
+  top: 90px;
   left: 0px;
   text-align: center; }
+
+.axis line, path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges; }
+
+.axis text {
+  font-size: 1.3rem;
+  font-family: 'ProximaNova Condensed Light'; }
 
 .detail {
   color: #004a71; }
@@ -1126,11 +1135,23 @@ there.
     border-top: 1px solid rgba(0, 74, 113, 0.12);
     font-size: 3rem; }
   .detail .genome-map-container .genome-map {
+    margin-left: -3px;
     width: 100%; }
   .detail .genome-map-container .map-text {
     fill: #004a71;
     font-family: 'ProximaNova Condensed Light';
     font-size: 1.4rem; }
+  .detail .genome-map-container .chrom-text {
+    font-family: 'ProximaNova Condensed Light';
+    font-size: 1.5rem;
+    fill: white;
+    fill-opacity: 0.8;
+    stroke: none; }
+  .detail .genome-map-container .chrom-title {
+    font-family: 'ProximaNova Condensed Light';
+    font-size: 1.5rem;
+    stroke: none;
+    fill: #004a71; }
   .detail .snp-table {
     display: flex;
     flex-flow: column nowrap; }
@@ -1232,9 +1253,6 @@ div .title a {
 div.menu-item {
   padding: 20px 40px 20px 0px; }
 
-div.menu-item:active {
-  background-color: rgba(240, 240, 240, 0.5); }
-
 div.menu-button {
   justify-content: flex-end;
   margin: 10px 10px 0px 0px;
@@ -1252,15 +1270,18 @@ div.show-button {
   left: 0px;
   z-index: -2;
   opacity: 0;
-  transition: opacity 0.3s linear;
+  transition: opacity 0.3s linear, z-index 0.3s step-end;
   width: 100vw;
   background-color: rgba(240, 243, 246, 0.9);
   border-bottom: 1px solid rgba(0, 74, 113, 0.2); }
+  .sticky .menu-item {
+    padding: 10px 40px 10px 0px; }
 
 .fixed {
   position: fixed;
   z-index: 2;
-  opacity: 1; }
+  opacity: 1;
+  transition: opacity 0.3s linear, z-index 0.3s step-start; }
 
 /* FOOTER STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -1307,7 +1328,7 @@ input[disabled] + label:hover {
 
 .helix {
   position: absolute;
-  bottom: 100px;
+  top: -100px;
   right: 10px;
   width: 190px;
   opacity: 0.4;
@@ -1318,7 +1339,7 @@ input[disabled] + label:hover {
 
 .helix-marks {
   position: absolute;
-  bottom: 40px;
+  top: -50px;
   right: 150px;
   width: 50px;
   opacity: 0.3;
@@ -1329,9 +1350,9 @@ input[disabled] + label:hover {
 
 .backbone {
   position: absolute;
-  bottom: 0px;
+  top: -100px;
   left: 20px;
-  width: 150px;
+  width: 140px;
   opacity: 0.3;
   height: 100%; }
   .backbone img {
@@ -1525,6 +1546,8 @@ input[disabled] + label:hover {
     text-align: left; }
   .start-item .button {
     margin-top: auto; }
+  .start-item a {
+    color: rgba(150, 210, 255, 0.9); }
   .start-item a:hover {
     color: white; }
 

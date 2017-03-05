@@ -417,7 +417,7 @@
 
       d3.select('.circles').style('transform', 'translateY(+' + winScroll / 12 + '%)');
 
-      d3.select('.circles2').style('transform', 'translateY(+' + winScroll / 12 + '%)');
+      d3.select('.circles2').style('transform', 'translateY(+' + winScroll / 15 + '%)');
 
       d3.select('.helix2').style('transform', 'translateY(+' + winScroll / 15 + '%)');
 
@@ -570,7 +570,7 @@
         });
 
         var margins = {
-          top: 5,
+          top: 20,
           left: 5,
           right: 5,
           bottom: 5
@@ -677,6 +677,8 @@
           });
         });
 
+        console.log(datasetMod2);
+
         var dataTEST = [{
           name: 'foo',
           value: 100000000
@@ -711,13 +713,15 @@
 
           var series = svg.append('g').attr('transform', 'translate(' + margins.left + ',' + margins.top + ')').selectAll('g').data(datasetMod2);
 
+          svg.select('g').append("text").attr("transform", 'translate(' + -1 + ',' + -4 + ')').text("Chromosomes").classed('chrom-title', true);
+
+          var label = svg.append('g').attr('width', 100).attr('height', 100).attr('fill', 'black');
+
           series.enter().append('g').attr('fill', function (d, i) {
             return colors(i);
           }).attr('fill-opacity', 0.6).style('stroke', function (d, i) {
             return colors(i);
           }).style('stroke-width', 1);
-
-          d3.selectAll('rect').remove();
 
           var rects = series.selectAll('rect').data(function (d) {
             return d;
@@ -729,9 +733,15 @@
             return xScale(d.x) - 3;
           });
 
+          rects.enter().append("text").attr("class", "chrom-text").attr("x", function (d) {
+            return xScale(d.x0) + 3;
+          }).attr("y", 14).text(function (d) {
+            return textHandler(d);
+          });
+
           /////////
 
-          var series2 = svg.append('g').selectAll('g').data([1]);
+          var series2 = svg.append('g').attr('transform', 'translate(' + margins.left + ',' + (margins.top - 5) + ')').selectAll('g').data([1]);
 
           series2.enter().append('g');
 
@@ -743,19 +753,26 @@
 
           rects2.enter().append("text").attr("class", "map-text").attr("x", function (d) {
             return xScale(d.totalPosition) + 5;
-          }).attr("y", 45).attr("dy", ".35em").text(function (d) {
+          }).attr("y", 49).attr("dy", ".35em").text(function (d) {
             return d.rsid;
           });
 
           d3.selectAll('.snp-line').call(tip);
           d3.selectAll('.snp-line').on('mouseover', tip.show).on('mouseout', tip.hide);
 
+          var xAxis = d3.svg.axis().scale(d3.scale.identity().domain([0, xMax]).range([0, width])).orient('bottom').ticks(4, 'e');
+
+          svg.append('g').attr('transform', 'translate(' + margins.left + ',' + (margins.top + 60) + ')').call(xAxis).classed('axis', true).append("text").attr("transform", 'translate(' + -3 + ',' + -4 + ')').text("Position");
+
+          function textHandler(d) {
+            return xScale(d.x) < 17 ? "" : d.y;
+          }
+
           overlap();
         }; //END OF UPDATE FUNCTION
 
         //UTILTIY FUNCTIONS
 
-        function calculateTextPosition() {}
 
         function getSnpVals(snpArray) {
           var snpVals = snpArray.map(function (elem) {

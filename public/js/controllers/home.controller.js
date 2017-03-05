@@ -31,7 +31,7 @@
         .style('transform', `translateY(+${winScroll / 12}%)`);
 
       d3.select('.circles2')
-        .style('transform', `translateY(+${winScroll / 12}%)`);
+        .style('transform', `translateY(+${winScroll / 15}%)`);
 
       d3.select('.helix2')
         .style('transform', `translateY(+${winScroll / 15}%)`);

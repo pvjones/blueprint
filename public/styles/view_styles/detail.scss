@@ -1,5 +1,5 @@
 .d3-tip {
-  margin-top:-10px;
+  margin-top: -12px;
   font-size: 1.5rem;
   font-family: 'ProximaNova Condensed Light';
   padding: 12px;
@@ -20,13 +20,23 @@
   color: rgba(0, 74, 110, 0.7);
   content: "\25BC";
   position: absolute;
-  top: 88px;
+  top: 90px;
   left: 0px;
   text-align: center;
 }
 
-.detail {
+.axis line, path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
 
+.axis text {
+  font-size: 1.3rem;
+  font-family: 'ProximaNova Condensed Light';
+}
+
+.detail {
   color: #004a71;
 
   .detail-back {
@@ -41,7 +51,6 @@
     .detail-title {
       font-size: 4rem;
       line-height: 5.3rem;
-
       margin-right: 30px;
     }
 
@@ -66,8 +75,8 @@
       overflow: hidden;
       border: 1px solid rgba(0, 74, 113, 0.5);
       border-radius: 3px;
-
     }
+
     img {
       width: 100%;
       height: auto;
@@ -82,6 +91,7 @@
     }
 
     .genome-map {
+      margin-left: -3px;
       width:100%
     }
 
@@ -91,6 +101,21 @@
       font-size: 1.4rem;
     }
 
+    .chrom-text {
+
+      font-family: 'ProximaNova Condensed Light';
+      font-size: 1.5rem;
+      fill: white;
+      fill-opacity: 0.8;
+      stroke: none;
+    }
+
+    .chrom-title {
+      font-family: 'ProximaNova Condensed Light';
+      font-size: 1.5rem;
+      stroke: none;
+      fill: #004a71;
+    }
   }
 
   .snp-table {
@@ -102,7 +127,6 @@
       font-family: 'ProximaNova Condensed Semibold';
       font-size: 1.5rem;
       background-color: rgba(0, 54, 113, 0.1);
-   
     }
 
     .table-row {

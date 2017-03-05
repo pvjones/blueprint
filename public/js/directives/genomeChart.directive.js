@@ -27,7 +27,7 @@
           });
 
           let margins = {
-            top: 5,
+            top: 20,
             left: 5,
             right: 5,
             bottom: 5
@@ -158,6 +158,8 @@
             });
           });
 
+          console.log(datasetMod2)
+
           let dataTEST = [{
             name: 'foo',
             value: 100000000
@@ -186,8 +188,6 @@
               .attr('width', width + margins.left + margins.right)
               .attr('height', height + 100 + margins.bottom + margins.top)
 
-          
-
             let xMax = d3.max(datasetMod2, (group) => {
               return d3.max(group, (d) => {
                 return d.x + d.x0;
@@ -206,7 +206,17 @@
             let series = svg.append('g')
               .attr('transform', `translate(${margins.left},${margins.top})`)
               .selectAll('g')
-              .data(datasetMod2);
+              .data(datasetMod2)
+
+            svg.select('g').append("text")
+                .attr("transform", `translate(${-1},${-4})`)
+                .text("Chromosomes")
+                .classed('chrom-title', true)
+
+            let label = svg.append('g')
+              .attr('width', 100)
+              .attr('height', 100)
+              .attr('fill', 'black')
 
             series.enter().append('g')
               .attr('fill', (d, i) => {
@@ -218,7 +228,6 @@
               })
               .style('stroke-width', 1)
 
-            d3.selectAll('rect').remove()
 
             let rects = series.selectAll('rect')
               .data((d) => {
@@ -235,14 +244,24 @@
               }) 
 
 
+            rects.enter().append("text")
+              .attr("class", "chrom-text")
+              .attr("x", (d) => {
+                return xScale(d.x0) + 3;
+              })
+              .attr("y", 14)
+              .text((d) => {
+                return textHandler(d);
+              })
+
             /////////
 
             let series2 = svg.append('g')
+              .attr('transform', `translate(${margins.left},${margins.top - 5})`)
               .selectAll('g')
               .data([1]);
 
             series2.enter().append('g')
-              
 
             let rects2 = series2.selectAll('rect')
               .data(snpVals);
@@ -264,7 +283,7 @@
               .attr("x", (d) => {
                 return xScale(d.totalPosition) + 5
               })
-              .attr("y", 45)
+              .attr("y", 49)
               .attr("dy", ".35em")
               .text((d) => {
                 return d.rsid;
@@ -275,13 +294,35 @@
               .on('mouseover', tip.show)
               .on('mouseout', tip.hide)
 
+
+            let xAxis = d3.svg.axis()
+              .scale(d3.scale.identity()
+                .domain([0, xMax])
+                .range([0, width]))
+              .orient('bottom')
+              .ticks(4, 'e')
+
+
+            svg.append('g')
+              .attr('transform', `translate(${margins.left},${margins.top + 60})`)
+              .call(xAxis)
+              .classed('axis', true)
+              .append("text")
+                .attr("transform", `translate(${-3},${-4})`)
+                .text("Position");
+
+
+          function textHandler(d) {
+            return (xScale(d.x) < 17) ? "" : d.y
+          }
+
             overlap();
 
           }; //END OF UPDATE FUNCTION
 
           //UTILTIY FUNCTIONS
 
-          function calculateTextPosition() {}
+
 
           function getSnpVals(snpArray) {
             let snpVals = snpArray.map((elem) => {
@@ -319,12 +360,12 @@
                           (Math.abs(a.top - b.top) * 2 < (a.height + b.height))) {
                           // overlap, move labels
                           var dx = (Math.max(0, a.right - b.left) +
-                              Math.min(0, a.left - b.right)) * 0.01,
-                            dy = (Math.max(0, a.bottom - b.top) +
-                              Math.min(0, a.top - b.bottom)) * 0.02,
-                            tt = d3.transform(d3.select(this).attr("transform")),
-                            to = d3.transform(d3.select(that).attr("transform"));
-                          move += Math.abs(dx) + Math.abs(dy);
+                                Math.min(0, a.left - b.right)) * 0.01,
+                              dy = (Math.max(0, a.bottom - b.top) +
+                                Math.min(0, a.top - b.bottom)) * 0.02,
+                              tt = d3.transform(d3.select(this).attr("transform")),
+                              to = d3.transform(d3.select(that).attr("transform"));
+                              move += Math.abs(dx) + Math.abs(dy);
 
                           to.translate = [to.translate[0] + dx, to.translate[1] + dy];
                           tt.translate = [tt.translate[0] - dx, tt.translate[1] - dy];

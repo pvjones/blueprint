@@ -1,5 +1,5 @@
 (function() {
-  
+
   angular
     .module('app')
     .controller('HomeController', HomeController)
@@ -33,7 +33,7 @@
         .style('transform', `translateY(+${winScroll / 12}%)`);
 
       d3.select('.circles2')
-        .style('transform', `translateY(+${winScroll / 15}%)`);
+        .style('transform', `translateY(+${winScroll / 20}%)`);
 
       d3.select('.helix2')
         .style('transform', `translateY(+${winScroll / 15}%)`);

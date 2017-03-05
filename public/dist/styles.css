@@ -1235,9 +1235,6 @@ there.
 
 /* MAIN MENU STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-header .container {
-  max-width: 1240px; }
-
 .menu {
   background-color: white;
   align-items: center;
@@ -1361,7 +1358,7 @@ input[disabled] + label:hover {
 
 .circles {
   position: absolute;
-  bottom: -20px;
+  bottom: -30px;
   width: calc(100%/1.7);
   opacity: 0.25; }
   .circles img {
@@ -1395,7 +1392,7 @@ input[disabled] + label:hover {
 
 .circles2 {
   position: absolute;
-  top: -220px;
+  top: -140px;
   width: calc(100%/1.7);
   opacity: 0.25; }
   .circles2 img {

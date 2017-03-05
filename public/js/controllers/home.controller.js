@@ -1,4 +1,5 @@
 (function() {
+  
   angular
     .module('app')
     .controller('HomeController', HomeController)
@@ -10,10 +11,11 @@
     $scope.isAuthed = user.isAuthed;
 
     // Parallax scroll effects
-    d3.select(window)
-      .on('scroll', function() {
 
-      let winScroll = $(this).scrollTop();
+    d3.select(window)
+      .on('scroll', () => {
+
+      let winScroll = window.scrollY;
 
       d3.select('.helix')
         .style('transform',`translateY(+${winScroll / 15}%)`);

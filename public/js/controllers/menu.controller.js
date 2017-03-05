@@ -4,13 +4,12 @@
     .module('app')
     .controller('MenuController', MenuController)
 
-  function MenuController($scope, $state, AuthService) {
+  function MenuController($scope, AuthService) {
 
     // Set initial display variables
     $scope.loggedIn = ($scope.loggedIn === true) ? true : false;
 
     function getUser() {
-
       AuthService.getUser()
         .then((res) => {
             $scope.userName = res.username;
@@ -23,12 +22,15 @@
 
     getUser();
 
-    $(window).scroll(function() {
-      var sticky = $('.sticky'),
-          scroll = $(this).scrollTop();
-      if (scroll >= 100) sticky.addClass('fixed');
-      else sticky.removeClass('fixed');
-    });
+    window.onscroll = function() {
+      let sticky = d3.select('.sticky'),
+          scroll = window.scrollY;
+      if (scroll >= 100) {
+        sticky.classed('fixed', true);
+      } else {
+        sticky.classed('fixed', false);
+      }
+    };
 
   } // END OF CTRL FUNC
 })(); // END OF IIFE

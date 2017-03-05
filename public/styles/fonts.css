@@ -30,3 +30,7 @@
   font-family: 'Verlag Light';
   src: url('./../styles/fonts/Verlag-Light.woff') format('woff');
 }
+@font-face {
+  font-family: 'Archistico Bold';
+  src: url('./../styles/fonts/Archistico-Bold.woff') format('woff');
+}

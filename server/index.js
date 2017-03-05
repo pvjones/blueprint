@@ -92,15 +92,16 @@ passport.use(new Auth0Strategy(config.authConfig, (accessToken, refreshToken, ex
     };
     let user = result[0];
     if (!user) { //if there isn't one, will create
-      console.log('CREATING USER');
       db.user.createUserByAuth([
         profile.displayName,
         profile.id
       ], (err, result) => {
         if (err) {
           console.error(err)
-        };
-        return done(err, result[0]); // GOES TO SERIALIZE USER **done function  is the same thing as 'next' function
+        } else {
+        console.log('new user created')
+        return done(err, result); // GOES TO SERIALIZE USER **done function  is the same thing as 'next' function
+        }
       })
     } else { //once user is found, return
       return done(err, result);
@@ -121,7 +122,7 @@ passport.deserializeUser((userB, done) => {
 app.get('/api/auth', passport.authenticate('auth0')); //initiates auth0 for user
 app.get('/api/auth/callback', passport.authenticate('auth0', {
   successRedirect: '/#!/start',
-  failureRedirect: '/#!/start' //Behavior for first-time-logins -- **NEEDS TO BE A SEPARATE PAGE, WITH THE WAY MY RESOLVES ARE CURRENTLY SET UP?
+  failureRedirect: '/#!/new-account' //Behavior for first-time-logins -- **NEEDS TO BE A SEPARATE PAGE, WITH THE WAY MY RESOLVES ARE CURRENTLY SET UP?
 })); // defines what happens after authentication
 app.get('/api/logout', function(req, res, next) {
   req.logout();
@@ -139,11 +140,10 @@ app.get('/api/auth/user', userController.currentUser);
 app.post('/api/upload', genomeService.translateToJSON, genomeService.runBattery, genomeController.getMaxGenomeId, genomeController.storeGenomeResults, genomeController.storeUserGenomeClassifiers, (req, res, next) => {
 
   genomeService.clearUserJSON()
-  console.log('file size *** ' + req.body.file.length)
+  console.log('file length *** ' + req.body.file.length)
   
   return res.status(200)
     .json('Results stored in database');
-
 })
 
 app.get('/api/results/:userId', genomeController.getMaxGenomeId, genomeController.getAllGenomeResultsByUserId, (req, res, next) => {

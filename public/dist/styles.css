@@ -238,6 +238,10 @@
   font-family: 'Verlag Light';
   src: url("./../styles/fonts/Verlag-Light.woff") format("woff"); }
 
+@font-face {
+  font-family: 'Archistico Bold';
+  src: url("./../styles/fonts/Archistico-Bold.woff") format("woff"); }
+
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 /**
  * 1. Set default font family to sans-serif.
@@ -1283,6 +1287,7 @@ div.show-button {
 /* FOOTER STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 footer {
+  position: relative;
   background-color: #004a71;
   color: white;
   padding: 25px;
@@ -1296,6 +1301,15 @@ footer {
     font-size: 4rem;
     margin-left: 30px;
     position: relative; }
+  footer .footer-circles {
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    opacity: 0.25;
+    text-align: center; }
+    footer .footer-circles img {
+      width: 1000px;
+      height: auto; }
 
 /* INPUT STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -1317,11 +1331,11 @@ input[disabled] + label:hover {
   overflow-x: hidden;
   overflow-y: hidden; }
   .masthead h1 {
-    font-size: 7rem; }
+    font-size: 9rem; }
   .masthead h5 {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     font-family: 'ProximaNova Condensed Light';
-    font-size: 2rem; }
+    font-size: 2.5rem; }
 
 .helix {
   position: absolute;
@@ -1359,7 +1373,7 @@ input[disabled] + label:hover {
 .circles {
   position: absolute;
   bottom: -30px;
-  width: calc(100%/1.7);
+  width: calc(100%/1.8);
   opacity: 0.25; }
   .circles img {
     width: 100%;
@@ -1409,7 +1423,7 @@ input[disabled] + label:hover {
   min-height: 300px;
   padding: 45px 30px;
   margin-top: 20px;
-  font-family: 'ProximaNova Condensed Light';
+  font-family: 'ProximaNova Regular Light';
   font-size: 2rem;
   color: #444;
   text-align: justify; }
@@ -1420,7 +1434,7 @@ input[disabled] + label:hover {
   min-height: 300px;
   padding: 80px 30px;
   margin-top: 20px;
-  font-family: 'ProximaNova Condensed Light';
+  font-family: 'ProximaNova Regular Light';
   font-size: 2rem;
   position: relative;
   background-color: #004a71;
@@ -1435,8 +1449,11 @@ input[disabled] + label:hover {
 .about-subtitle {
   text-transform: uppercase;
   text-align: center;
-  margin-bottom: 15px;
-  font-family: 'ProximaNova Regular Condensed'; }
+  margin-bottom: 25px; }
+  .about-subtitle h4 {
+    font-size: 3.5rem;
+    letter-spacing: 0.2px;
+    font-family: 'ProximaNova Regular Condensed'; }
 
 .spacer-border {
   width: 52%;
@@ -1498,35 +1515,52 @@ input[disabled] + label:hover {
   color: white;
   overflow-x: hidden;
   overflow-y: hidden; }
+  .start-main a {
+    color: rgba(160, 230, 255, 0.8); }
+  .start-main a:hover {
+    color: #a0e6ff; }
+
+.helix {
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  width: 190px;
+  opacity: 0.4;
+  height: 100%; }
+  .helix img {
+    width: 100%;
+    height: auto; }
 
 .start-items {
   margin: 50px auto;
   font-size: 2rem;
   color: #fff; }
-  .start-items .title {
-    text-transform: uppercase;
+  .start-items .start-title {
     text-align: center;
     margin-bottom: 20px; }
-    .start-items .title h4 {
-      font-size: 4rem; }
-    .start-items .title h4, .start-items .title h5 {
-      margin-bottom: 8px; }
+  .start-items h4, .start-items h5 {
+    font-family: 'ProximaNova Condensed Light';
+    margin-bottom: 8px; }
+  .start-items h4 {
+    text-transform: uppercase;
+    font-family: "ProximaNova Condensed Semibold";
+    font-size: 4rem; }
   .start-items .start-item-container {
     height: 100%; }
 
 .start-item {
   min-height: 450px;
-  border: 1px solid #fff;
   padding: 20px;
   border-radius: 3px;
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: rgba(255, 255, 255, 0.05); }
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.5); }
   .start-item h5 {
     font-size: 2.5rem;
-    font-family: ProximaNova Condensed Semibold;
+    font-family: 'ProximaNova Condensed Semibold';
     line-height: 3rem; }
   .start-item p {
     font-family: 'ProximaNova Condensed Light';
@@ -1538,15 +1572,20 @@ input[disabled] + label:hover {
     margin-bottom: 15px;
     color: white; }
   .start-item ul {
+    font-family: 'ProximaNova Condensed Light';
     font-size: 2rem;
     line-height: 1rem;
     text-align: left; }
   .start-item .button {
     margin-top: auto; }
-  .start-item a {
-    color: rgba(150, 210, 255, 0.9); }
-  .start-item a:hover {
-    color: white; }
+  .start-item .button-white {
+    margin-top: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transition: .1s ease-in-out; }
+  .start-item .button-white:hover {
+    color: #004a71;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1); }
 
 .input-container {
   margin-top: auto;
@@ -1557,7 +1596,7 @@ input[disabled] + label:hover {
     font-family: 'ProximaNova Condensed Light';
     font-size: 1.8rem;
     background-color: rgba(0, 0, 0, 0.15);
-    border: 2px solid white;
+    border: 1px solid rgba(255, 255, 255, 0.5);
     text-align: center;
     margin-bottom: 10px; }
   .input-container .input-text::-webkit-input-placeholder {
@@ -1572,6 +1611,7 @@ input[disabled] + label:hover {
   z-index: -1; }
 
 .inputfile + label {
+  box-sizing: border-box;
   display: inline-block;
   height: 38px;
   width: 100%;
@@ -1586,17 +1626,16 @@ input[disabled] + label:hover {
   text-decoration: none;
   white-space: nowrap;
   background-color: transparent;
-  border-radius: 4px;
-  border: 2px solid #fff;
   cursor: pointer;
-  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
   transition: .1s ease-in-out; }
 
 .inputfile + label:hover,
 .inputfile:focus + label {
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: #004a71;
-  border-color: #fff;
   outline: 0; }
 
 .upload-message-background {

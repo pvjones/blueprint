@@ -56,6 +56,7 @@
                 let currentUser = {
                   isAuthed: false
                 }
+                console.log("start resolve user", currentUser)
                 $state.go('home')
                 return currentUser
               });

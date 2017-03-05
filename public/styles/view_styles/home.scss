@@ -135,6 +135,7 @@ div.show-button {
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 footer {
+  position:relative;
   background-color: #004a71;
   color: white;
   padding: 25px;
@@ -150,6 +151,17 @@ footer {
     font-size: 4rem;
     margin-left: 30px;
     position: relative;
+  }
+  .footer-circles {
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    opacity: 0.25;
+    text-align: center;
+    img {
+      width: 1000px;
+      height: auto;
+    }
   }
 }
 
@@ -178,13 +190,13 @@ input[disabled] + label:hover {
   overflow-y: hidden;
 
   h1 {
-    font-size: 7rem;
+    font-size: 9rem;
   }
 
   h5 {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   font-family: 'ProximaNova Condensed Light';
-  font-size: 2rem;
+  font-size: 2.5rem;
   }
 }
 
@@ -230,7 +242,7 @@ input[disabled] + label:hover {
 .circles {
   position: absolute;
   bottom: -30px;
-  width: calc(100%/1.7);
+  width: calc(100%/1.8);
   opacity: 0.25;
 
   img {
@@ -295,7 +307,7 @@ input[disabled] + label:hover {
   min-height: 300px;
   padding: 45px 30px;
   margin-top: 20px;
-  font-family: 'ProximaNova Condensed Light';
+  font-family: 'ProximaNova Regular Light';
   font-size: 2rem;
   color: #444;
   text-align: justify;
@@ -306,11 +318,10 @@ input[disabled] + label:hover {
 }
 
 .about2 {
-
   min-height: 300px;
   padding: 80px 30px;
   margin-top: 20px;
-  font-family: 'ProximaNova Condensed Light';
+  font-family: 'ProximaNova Regular Light';
   font-size: 2rem;
 
   position:relative;
@@ -330,8 +341,12 @@ input[disabled] + label:hover {
 .about-subtitle {
   text-transform: uppercase;
   text-align: center;
-  margin-bottom: 15px;
-  font-family: 'ProximaNova Regular Condensed';
+  margin-bottom: 25px;
+  h4 {
+    font-size: 3.5rem;
+    letter-spacing: 0.2px;
+    font-family: 'ProximaNova Regular Condensed';    
+  }
 }
 
 .spacer-border {

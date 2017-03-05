@@ -160,20 +160,11 @@
 
           console.log(datasetMod2)
 
-          let dataTEST = [{
-            name: 'foo',
-            value: 100000000
-          }, {
-            name: 'bar',
-            value: 200000000
-          }]
-
           var tip = d3.tip()
             .attr('class', 'd3-tip')
             .html(function(d) {
               return `<span class='tooltip-rsid'>RSID: ${d.rsid}</span><br /><span class='tooltip-chromosome'>Chromosome:  ${d.chromosome}</span><br /><span class='tooltip-position'>Positon:  ${d.position}</span>`;
             })
-
 
           //DRAW CHART
 
@@ -209,14 +200,9 @@
               .data(datasetMod2)
 
             svg.select('g').append("text")
-                .attr("transform", `translate(${-1},${-4})`)
+                .attr("transform", `translate(${-1},${-8})`)
                 .text("Chromosomes")
                 .classed('chrom-title', true)
-
-            let label = svg.append('g')
-              .attr('width', 100)
-              .attr('height', 100)
-              .attr('fill', 'black')
 
             series.enter().append('g')
               .attr('fill', (d, i) => {
@@ -228,7 +214,6 @@
               })
               .style('stroke-width', 1)
 
-
             let rects = series.selectAll('rect')
               .data((d) => {
                 return d;
@@ -238,18 +223,17 @@
               .attr('x', (d) => {
                 return xScale(d.x0);
               })
-              .attr('height', 30)
+              .attr('height', 35)
               .attr('width', (d) => {
                 return xScale(d.x) - 3;
               }) 
-
 
             rects.enter().append("text")
               .attr("class", "chrom-text")
               .attr("x", (d) => {
                 return xScale(d.x0) + 3;
               })
-              .attr("y", 14)
+              .attr("y", 13)
               .text((d) => {
                 return textHandler(d);
               })
@@ -257,7 +241,7 @@
             /////////
 
             let series2 = svg.append('g')
-              .attr('transform', `translate(${margins.left},${margins.top - 5})`)
+              .attr('transform', `translate(${margins.left},${margins.top - 4})`)
               .selectAll('g')
               .data([1]);
 
@@ -271,7 +255,7 @@
               .attr('x', (d) => {
                 return xScale(d.totalPosition)
               })
-              .attr('height', 40)
+              .attr('height', 44)
               .attr('width', 4)
               .attr('fill', 'red')
               .attr('stroke', '#004a71')
@@ -283,17 +267,21 @@
               .attr("x", (d) => {
                 return xScale(d.totalPosition) + 5
               })
-              .attr("y", 49)
+              .attr("y", 52)
               .attr("dy", ".35em")
               .text((d) => {
                 return d.rsid;
               })
 
+              // rects2.enter().append("path")
+              //   .attr("d", d3.svg.diagonal()
+              //       .source( {"x":300, "y":20} )
+              //       .target( {"x":340, "y":60} ));
+
             d3.selectAll('.snp-line').call(tip)
             d3.selectAll('.snp-line')
               .on('mouseover', tip.show)
               .on('mouseout', tip.hide)
-
 
             let xAxis = d3.svg.axis()
               .scale(d3.scale.identity()
@@ -302,18 +290,16 @@
               .orient('bottom')
               .ticks(4, 'e')
 
-
             svg.append('g')
-              .attr('transform', `translate(${margins.left},${margins.top + 60})`)
+              .attr('transform', `translate(${margins.left},${margins.top + 70})`)
               .call(xAxis)
               .classed('axis', true)
               .append("text")
                 .attr("transform", `translate(${-3},${-4})`)
                 .text("Position");
 
-
           function textHandler(d) {
-            return (xScale(d.x) < 17) ? "" : d.y
+            return (xScale(d.x) < 18) ? "" : d.y
           }
 
             overlap();

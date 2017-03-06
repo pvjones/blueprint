@@ -30,7 +30,7 @@
         .style('transform', `translateX(+${winScroll / 12}%)`);
 
       d3.select('.circles')
-        .style('transform', `translateY(+${winScroll / 12}%)`);
+        .style('transform', `translateY(+${winScroll / 8}%)`);
 
       d3.select('.circles2')
         .style('transform', `translateY(+${winScroll / 20}%)`);
@@ -43,6 +43,9 @@
 
       d3.select('.circles3')
         .style('transform', `translateY(+${winScroll / 20}%)`);
+
+      d3.select('.masthead-contents')
+        .style('transform', `translateY(+${winScroll / 30}%)`);
     });
 
   } // END OF CTRL FUNC

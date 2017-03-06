@@ -1331,11 +1331,18 @@ input[disabled] + label:hover {
   overflow-x: hidden;
   overflow-y: hidden; }
   .masthead h1 {
-    font-size: 9rem; }
+    font-size: 8rem;
+    margin: 0px 0px 3px 0px; }
   .masthead h5 {
-    margin-bottom: 20px;
     font-family: 'ProximaNova Condensed Light';
-    font-size: 2.5rem; }
+    font-size: 2.5rem;
+    margin: 0px; }
+  .masthead .helix-logo {
+    margin: 10px 10px 8px 10px;
+    opacity: 0.9; }
+    .masthead .helix-logo img {
+      width: 100px;
+      height: auto; }
 
 .helix {
   position: absolute;
@@ -1374,13 +1381,15 @@ input[disabled] + label:hover {
   position: absolute;
   bottom: -30px;
   width: calc(100%/1.8);
-  opacity: 0.25; }
+  opacity: 0.2; }
   .circles img {
     width: 100%;
     height: auto; }
 
 .auth-button {
   z-index: 1; }
+  .auth-button .button {
+    margin: 20px; }
 
 .helix2 {
   position: absolute;

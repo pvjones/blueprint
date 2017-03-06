@@ -1,14 +1,15 @@
 <div class="row centered masthead flex-column centered">
+  <div class="flex-column centered masthead-contents">
     <div class="centered">
       <h1>
-        Blueprint
+        blueprint
       </h1>
     </div>
-    <div class="centered">
-      <h5>Explore your DNA</h5>
+    <div class="centered helix-logo">
+      <img src="./../images/helix-logo2.png">
     </div>
     <div class="centered">
-      <h5>In depth, free, and secure</h5>
+      <h5>Explore your DNA<br /> in depth, free, and secure</h5>
     </div>
     <div class="auth-button hide-button" ng-class="{'show-button' : !isAuthed}">
       <a href="/api/auth">
@@ -18,6 +19,7 @@
     <div class="auth-button hide-button" ng-class="{'show-button' : isAuthed}">
       <div class="button button-white" ui-sref="summary">Enter</div>
     </div>
+  </div>
     <div class="backbone">
       <img src="./../images/backbone.png">
     </div>

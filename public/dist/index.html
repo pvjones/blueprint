@@ -56,15 +56,15 @@
       <div class="flex centered menu-item" ui-sref-active="active-menu">
         <a ui-sref="home({'#':'about'})">about</a>
       </div>
-      <div class="menu-button" ng-hide="loggedIn">
-          <a href="/auth">
+      <div class="menu-button flex centered hide-button" ng-class="{ 'show-button' : !isAuthed }">
+          <a href="/api/auth">
             <div class="button">
               Start Exploring
             </div>
           </a>
       </div>
-      <div class="menu-button" ng-hide="!loggedIn">
-          <a href="/logout">
+      <div class="menu-button flex centered hide-button" ng-class="{ 'show-button' : isAuthed }">
+          <a href="/api/logout">
             <div class="button">
               <i class="fa fa-power-off" aria-hidden="true" style="margin-right:10px"></i>End Session
             </div>

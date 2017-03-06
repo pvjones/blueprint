@@ -8,6 +8,7 @@
       <div class="table-row">
         <div class="table-cell result-name">{{ ctrl.data.reportTitle }}</div>
         <div class="table-cell genoset-name">Genoset</div>
+        <div class="table-cell snp-map">SNP map</div>
         <div class="table-cell result">{{ ctrl.data.reportResultTitle }}</div>
       </div>
     </div>
@@ -16,6 +17,9 @@
         class="table-row" ui-sref="detail({descriptionId:result.descriptionid})">
           <div class="table-cell result-name">{{ result.resultname }}</div>
           <div class="table-cell genoset-name">{{ result.genosetname }}</div>
+          <div class="table-cell snp-map">
+            <genome-mini-chart data="result.descriptionid"></genome-mini-chart>
+          </div>
           <div class="table-cell result" ng-class="{'red':ctrl.colorResult(result)==='red', 'yellow':ctrl.colorResult(result)==='yellow', 'green':ctrl.colorResult(result)==='green'}">{{ result.resultbool ? result.resultdesctrue : result.resultdescfalse }}</div>
       </div>
     </div>

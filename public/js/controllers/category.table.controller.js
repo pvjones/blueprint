@@ -29,7 +29,6 @@
       } else {
         color = "black"
       }    
-      
     return color;
     }
 

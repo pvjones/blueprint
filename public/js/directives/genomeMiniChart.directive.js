@@ -1,9 +1,9 @@
 (function() {
   angular
     .module('app')
-    .directive('genomeChart', genomeChart);
+    .directive('genomeMiniChart', genomeMiniChart);
 
-  function genomeChart(ChartResizeService) {
+  function genomeMiniChart(DetailService, ChartResizeService) {
 
     return {
       restrict: 'E',
@@ -11,6 +11,16 @@
         data: '='
       },
       link: function(scope, elem, attrs) {
+
+          let data = scope.data;
+
+          DetailService.getDetail(data)
+            .then((res) => {
+              data = res.SNPs
+            })
+            .catch((err) => {
+              console.log(err)
+            })
 
           let chartElement = elem[0];
 
@@ -297,7 +307,6 @@
               return (xScale(d.x) < 18) ? "" : d.y
             }
 
-            overlap();
 
           }; //END OF UPDATE FUNCTION
 
@@ -320,41 +329,6 @@
             position += +snpObj.position;
             return position;
           };
-
-          function overlap() {
-            var move = 1;
-            while (move > 0) {
-              move = 0;
-              d3.selectAll('.map-text')
-                .each(function() {
-                  var that = this,
-                    a = this.getBoundingClientRect();
-                  d3.selectAll('.map-text')
-                    .each(function() {
-                      if (this != that) {
-                        var b = this.getBoundingClientRect();
-                        if ((Math.abs(a.left - b.left) * 2 < (a.width + b.width)) &&
-                          (Math.abs(a.top - b.top) * 2 < (a.height + b.height))) {
-                          // overlap, move labels
-                          var dx = (Math.max(0, a.right - b.left) +
-                              Math.min(0, a.left - b.right)) * 0.01,
-                            dy = (Math.max(0, a.bottom - b.top) +
-                              Math.min(0, a.top - b.bottom)) * 0.02,
-                            tt = d3.transform(d3.select(this).attr("transform")),
-                            to = d3.transform(d3.select(that).attr("transform"));
-                          move += Math.abs(dx) + Math.abs(dy);
-
-                          to.translate = [to.translate[0] + dx, to.translate[1] + dy];
-                          tt.translate = [tt.translate[0] - dx, tt.translate[1] - dy];
-                          d3.select(this).attr("transform", "translate(" + tt.translate + ")");
-                          d3.select(that).attr("transform", "translate(" + to.translate + ")");
-                          a = this.getBoundingClientRect();
-                        }
-                      }
-                    })
-                })
-            }
-          }
 
         } //end of link
     };

@@ -1779,6 +1779,9 @@ div.category-container {
 .summary .genoset-name {
   display: none; }
 
+.summary .snp-map {
+  display: none; }
+
 /* ALL RESULTS */
 .summary-all-results .table-body {
   padding-bottom: 50px;
@@ -1793,8 +1796,5 @@ div.category-container {
 
 .summary-all-results .category-table .result {
   text-align: right; }
-
-.summary-all-results .scroll-for-more {
-  display: none; }
 
 /*# sourceMappingURL=public/maps/styles.css.map */

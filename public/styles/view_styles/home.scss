@@ -44,13 +44,13 @@
   .button-white {
     margin-top: 20px;
     color: #EFEFEF;
-    border: 2px solid #EFEFEF;
+    border: 1px solid #EFEFEF;
     transition: .1s ease-in-out;
   }
 
   .button-white:hover {
     color: #004a71;
-    border: 2px solid white;
+    border: 1px solid white;
     background-color: #EFEFEF;
   }
 
@@ -257,7 +257,7 @@ input[disabled] + label:hover {
 
 .helix2 {
   position: absolute;
-  top: -400px;
+  top: -500px;
   right: 10px;
   width: 190px;
   opacity: 0.4;
@@ -270,7 +270,7 @@ input[disabled] + label:hover {
 
 .backbone2 {
   position: absolute;
-  top: -400px;
+  top: -500px;
   left: 20px;
   width: 150px;
   opacity: 0.3;
@@ -282,7 +282,6 @@ input[disabled] + label:hover {
 }
 
 .circles2 {
-
   img {
     -moz-transform: scaleY(-1);
     -o-transform: scaleY(-1);
@@ -291,12 +290,20 @@ input[disabled] + label:hover {
     width: 100%;
     height: auto;
   }
-
   position: absolute;
   top: -140px;
   width: calc(100%/1.7);
-  opacity: 0.25;
-
+  opacity: 0.2;
+}
+.circles3 {
+  img {
+    width: 100%;
+    height: auto;
+  }
+  position: absolute;
+  bottom: 0px;
+  width: calc(100%/1.7);
+  opacity: 0.2;
 }
 
 

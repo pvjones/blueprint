@@ -40,6 +40,9 @@
 
       d3.select('.backbone2')
         .style('transform', `translateY(+${winScroll / 15}%)`);
+
+      d3.select('.circles3')
+        .style('transform', `translateY(+${winScroll / 20}%)`);
     });
 
   } // END OF CTRL FUNC

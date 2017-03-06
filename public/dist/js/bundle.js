@@ -363,6 +363,176 @@
 'use strict';
 
 (function () {
+  angular.module('app').service('AuthService', AuthService);
+
+  function AuthService($http) {
+
+    this.getUser = function () {
+      return $http({
+        method: 'GET',
+        url: '/api/auth/user'
+      }).then(function (response) {
+        return response.data[0];
+      }).catch(function (err) {
+        throw new Error(err);
+      });
+    };
+  }
+})();
+'use strict';
+
+(function () {
+  angular.module('app').service('ChartResizeService', ChartResizeService);
+
+  function ChartResizeService() {
+
+    this.calculateElementWidth = function (element) {
+      if (!element.offsetWidth) {
+        return 0;
+      }
+      var style = window.getComputedStyle(element);
+      var width = element.offsetWidth;
+      return width;
+
+      console.log(style);
+    };
+  };
+})();
+'use strict';
+
+(function () {
+
+  angular.module('app').service('DetailService', DetailService);
+
+  function DetailService($http) {
+
+    this.getDetail = function (descriptionId) {
+      return $http({
+        method: 'GET',
+        url: '/api/getdetail/' + descriptionId
+      }).then(function (response) {
+        return response.data[0].detailobject;
+      }).catch(function (error) {
+        console.log(error);
+        throw new Error(error);
+      });
+    };
+  };
+})();
+'use strict';
+
+(function () {
+
+  angular.module('app').service('FilterService', FilterService);
+
+  function FilterService() {
+    this.filter = '';
+    this.searchTerm = '';
+
+    this.setFilter = function (filterName) {
+      switch (filterName) {
+        case 'search':
+          if (this.searchTerm && this.searchTerm.length > 0) {
+            this.filter = { resultname: this.searchTerm };
+          } else {
+            this.filter = '';
+          }
+          break;
+        case 'healthAlert':
+          this.filter = { resultbool: true, resultqual: 'negative' };
+          break;
+        case '':
+          this.filter = '';
+        default:
+          this.filter = '';
+      };
+    };
+  };
+})();
+'use strict';
+
+(function () {
+  angular.module('app').service('ResultsService', ResultsService);
+
+  function ResultsService($http) {
+
+    this.getResultsByUserId = function (userId) {
+      //console.log("service userId", userId)
+      return $http({
+        method: 'GET',
+        url: '/api/results/' + userId
+      }).then(function (response) {
+        //console.log('valid response from $http', response)
+        return response.data;
+      }).catch(function (err) {
+        console.log(err);
+        throw new Error(err);
+      });
+    };
+  }; // END OF SVC FUNC
+})(); // END OF IIFE
+'use strict';
+
+(function () {
+  angular.module('app').service('UploadService', UploadService);
+
+  function UploadService($http, $q) {
+
+    this.sendGenomeTXT = function (uploadTXT, genomeName) {
+      var deferred = $q.defer();
+      $http({
+        method: 'POST',
+        url: '/api/upload',
+        data: {
+          file: uploadTXT,
+          genomeName: genomeName
+        }
+      }).then(function (res) {
+        deferred.resolve(res.data);
+      }).catch(function (res) {
+        deferred.reject(res);
+      });
+      return deferred.promise;
+    };
+  } //END OF SVC FUNC
+})(); //END OF IIFE
+'use strict';
+
+(function () {
+
+  angular.module('app').service('ZygousityService', ZygousityService);
+
+  function ZygousityService() {
+
+    this.handleZygousity = function (categoryArray) {
+      var cleansedArray = categoryArray;
+
+      for (var i = cleansedArray.length - 1; i >= 0; i--) {
+
+        if (cleansedArray[i]) {
+
+          for (var j = i - 1; j >= 0; j--) {
+
+            if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[j].resultbool === true) {
+              cleansedArray.splice(i, 1);
+              break;
+            } else if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[i].resultbool === true) {
+              cleansedArray.splice(j, 1);
+              break;
+            } else if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[i].resultbool === false && cleansedArray[j].resultbool === false) {
+              cleansedArray.splice(j, 1);
+              break;
+            }
+          }
+        }
+      }
+      return cleansedArray;
+    };
+  };
+})();
+'use strict';
+
+(function () {
 
   angular.module('app').controller('categoryTableController', categoryTableController);
 
@@ -449,6 +619,8 @@
       d3.select('.helix2').style('transform', 'translateY(+' + winScroll / 15 + '%)');
 
       d3.select('.backbone2').style('transform', 'translateY(+' + winScroll / 15 + '%)');
+
+      d3.select('.circles3').style('transform', 'translateY(+' + winScroll / 20 + '%)');
     });
   } // END OF CTRL FUNC
 })(); // END OF IIFE
@@ -737,7 +909,7 @@
 
           d3.select(elem[0]).selectAll('svg').remove();
 
-          var svg = d3.select(elem[0]).append('svg').attr('width', width + margins.left + margins.right).attr('height', height + 100 + margins.bottom + margins.top);
+          var svg = d3.select(elem[0]).append('svg').attr('width', width + margins.left + margins.right).attr('height', height + 100 + margins.bottom + margins.top).style('overflow', 'overlay');
 
           var xMax = d3.max(datasetMod2, function (group) {
             return d3.max(group, function (d) {
@@ -797,9 +969,9 @@
 
           d3.selectAll('.snp-line').on('mouseover', tip.show).on('mouseout', tip.hide);
 
-          var xAxis = d3.svg.axis().scale(d3.scale.identity().domain([0, xMax]).range([0, width])).orient('bottom').ticks(4, 'e');
+          var xAxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(3, 's');
 
-          svg.append('g').attr('transform', 'translate(' + margins.left + ',' + (margins.top + 70) + ')').call(xAxis).classed('axis', true).append("text").attr("transform", 'translate(' + -3 + ',' + -4 + ')').text("Position");
+          svg.append('g').attr('transform', 'translate(' + margins.left + ',' + (margins.top + 70) + ')').call(xAxis).classed('axis', true).append("text").attr("transform", 'translate(' + -3 + ',' + -4 + ')').text("Position [bp]");
 
           function textHandler(d) {
             return xScale(d.x) < 18 ? "" : d.y;
@@ -1025,10 +1197,6 @@
             });
           });
 
-          var xScale = d3.scale.linear().domain([0, xMax]).range([0, width]);
-
-          var colors = d3.scale.linear().domain([1, width / 20]).interpolate(d3.interpolateHcl).range([d3.rgb("#104f99"), d3.rgb('#f75050')]);
-
           var series = svg.append('g').attr('transform', 'translate(' + margins.left + ',' + margins.top + ')').selectAll('g').data(datasetMod2);
 
           svg.select('g').append("text").attr("transform", 'translate(' + -1 + ',' + -8 + ')').text("Chromosomes").classed('chrom-title', true);
@@ -1159,176 +1327,6 @@
         });
       }
 
-    };
-  };
-})();
-'use strict';
-
-(function () {
-  angular.module('app').service('AuthService', AuthService);
-
-  function AuthService($http) {
-
-    this.getUser = function () {
-      return $http({
-        method: 'GET',
-        url: '/api/auth/user'
-      }).then(function (response) {
-        return response.data[0];
-      }).catch(function (err) {
-        throw new Error(err);
-      });
-    };
-  }
-})();
-'use strict';
-
-(function () {
-  angular.module('app').service('ChartResizeService', ChartResizeService);
-
-  function ChartResizeService() {
-
-    this.calculateElementWidth = function (element) {
-      if (!element.offsetWidth) {
-        return 0;
-      }
-      var style = window.getComputedStyle(element);
-      var width = element.offsetWidth;
-      return width;
-
-      console.log(style);
-    };
-  };
-})();
-'use strict';
-
-(function () {
-
-  angular.module('app').service('DetailService', DetailService);
-
-  function DetailService($http) {
-
-    this.getDetail = function (descriptionId) {
-      return $http({
-        method: 'GET',
-        url: '/api/getdetail/' + descriptionId
-      }).then(function (response) {
-        return response.data[0].detailobject;
-      }).catch(function (error) {
-        console.log(error);
-        throw new Error(error);
-      });
-    };
-  };
-})();
-'use strict';
-
-(function () {
-
-  angular.module('app').service('FilterService', FilterService);
-
-  function FilterService() {
-    this.filter = '';
-    this.searchTerm = '';
-
-    this.setFilter = function (filterName) {
-      switch (filterName) {
-        case 'search':
-          if (this.searchTerm && this.searchTerm.length > 0) {
-            this.filter = { resultname: this.searchTerm };
-          } else {
-            this.filter = '';
-          }
-          break;
-        case 'healthAlert':
-          this.filter = { resultbool: true, resultqual: 'negative' };
-          break;
-        case '':
-          this.filter = '';
-        default:
-          this.filter = '';
-      };
-    };
-  };
-})();
-'use strict';
-
-(function () {
-  angular.module('app').service('ResultsService', ResultsService);
-
-  function ResultsService($http) {
-
-    this.getResultsByUserId = function (userId) {
-      //console.log("service userId", userId)
-      return $http({
-        method: 'GET',
-        url: '/api/results/' + userId
-      }).then(function (response) {
-        //console.log('valid response from $http', response)
-        return response.data;
-      }).catch(function (err) {
-        console.log(err);
-        throw new Error(err);
-      });
-    };
-  }; // END OF SVC FUNC
-})(); // END OF IIFE
-'use strict';
-
-(function () {
-  angular.module('app').service('UploadService', UploadService);
-
-  function UploadService($http, $q) {
-
-    this.sendGenomeTXT = function (uploadTXT, genomeName) {
-      var deferred = $q.defer();
-      $http({
-        method: 'POST',
-        url: '/api/upload',
-        data: {
-          file: uploadTXT,
-          genomeName: genomeName
-        }
-      }).then(function (res) {
-        deferred.resolve(res.data);
-      }).catch(function (res) {
-        deferred.reject(res);
-      });
-      return deferred.promise;
-    };
-  } //END OF SVC FUNC
-})(); //END OF IIFE
-'use strict';
-
-(function () {
-
-  angular.module('app').service('ZygousityService', ZygousityService);
-
-  function ZygousityService() {
-
-    this.handleZygousity = function (categoryArray) {
-      var cleansedArray = categoryArray;
-
-      for (var i = cleansedArray.length - 1; i >= 0; i--) {
-
-        if (cleansedArray[i]) {
-
-          for (var j = i - 1; j >= 0; j--) {
-
-            if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[j].resultbool === true) {
-              cleansedArray.splice(i, 1);
-              break;
-            } else if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[i].resultbool === true) {
-              cleansedArray.splice(j, 1);
-              break;
-            } else if (cleansedArray[j].resultname == cleansedArray[i].resultname && cleansedArray[i].resultbool === false && cleansedArray[j].resultbool === false) {
-              cleansedArray.splice(j, 1);
-              break;
-            }
-          }
-        }
-      }
-      return cleansedArray;
     };
   };
 })();

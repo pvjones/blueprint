@@ -176,6 +176,7 @@
               .append('svg')
               .attr('width', width + margins.left + margins.right)
               .attr('height', height + 100 + margins.bottom + margins.top)
+              .style('overflow', 'overlay')
 
             let xMax = d3.max(datasetMod2, (group) => {
               return d3.max(group, (d) => {
@@ -279,11 +280,9 @@
               .on('mouseout', tip.hide)
 
             let xAxis = d3.svg.axis()
-              .scale(d3.scale.identity()
-                .domain([0, xMax])
-                .range([0, width]))
+              .scale(xScale)
               .orient('bottom')
-              .ticks(4, 'e')
+              .ticks(3, 's')
 
             svg.append('g')
               .attr('transform', `translate(${margins.left},${margins.top + 70})`)
@@ -291,7 +290,7 @@
               .classed('axis', true)
               .append("text")
               .attr("transform", `translate(${-3},${-4})`)
-              .text("Position");
+              .text("Position [bp]");
 
             function textHandler(d) {
               return (xScale(d.x) < 18) ? "" : d.y

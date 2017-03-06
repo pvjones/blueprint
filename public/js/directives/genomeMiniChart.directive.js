@@ -193,14 +193,7 @@
               });
             });
 
-            let xScale = d3.scale.linear()
-              .domain([0, xMax])
-              .range([0, width])
-
-            let colors = d3.scale.linear()
-              .domain([1, width / 20])
-              .interpolate(d3.interpolateHcl)
-              .range([d3.rgb("#104f99"), d3.rgb('#f75050')]);
+            
 
             let series = svg.append('g')
               .attr('transform', `translate(${margins.left},${margins.top})`)

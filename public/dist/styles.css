@@ -1252,7 +1252,7 @@ div .title a {
   color: #ff533a; }
 
 div.menu-item {
-  padding: 20px 40px 20px 0px; }
+  padding: 17px 40px 17px 0px; }
 
 div.menu-button {
   justify-content: flex-end;
@@ -1550,7 +1550,7 @@ input[disabled] + label:hover {
     height: auto; }
 
 .start-items {
-  margin: 50px auto;
+  margin: 30px auto;
   font-size: 2rem;
   color: #fff; }
   .start-items .start-title {

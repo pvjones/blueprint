@@ -4,16 +4,14 @@ module.exports = {
   currentUser: function(req, res, next) {
     // If user isnt on the session, then return error status
     if (!req.user) {
-      console.log('Current user not found');
       return res.status(401)
         .send('current user not defined');
+    } else {
+      let user = req.user;
+      // Return user
+      return res.status(200)
+        .json(user);
     }
-
-    let user = req.user;
-
-    // Return user
-    return res.status(200)
-      .json(user);
   }
 
 };

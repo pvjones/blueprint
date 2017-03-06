@@ -99,8 +99,14 @@ passport.use(new Auth0Strategy(config.authConfig, (accessToken, refreshToken, ex
         if (err) {
           console.error(err)
         } else {
-        console.log('new user created')
-        return done(err, result); // GOES TO SERIALIZE USER **done function  is the same thing as 'next' function
+          console.log('new user created')
+          db.user.getUserByAuthId([profile.id], function(err, result) {
+            if (err) {
+              console.error(err)
+            } else {
+              return done(err, result)
+            }
+          })
         }
       })
     } else { //once user is found, return
@@ -115,14 +121,15 @@ passport.serializeUser((userA, done) => {
 });
 
 passport.deserializeUser((userB, done) => {
-  done(null, userB); //PUTS 'USER' ON REQ.USER
+  let user = userB;
+  done(null, user); //PUTS 'USER' ON REQ.USER
 });
 
 //PASSPORT AND AUTH0 ENDPOINTS
 app.get('/api/auth', passport.authenticate('auth0')); //initiates auth0 for user
 app.get('/api/auth/callback', passport.authenticate('auth0', {
   successRedirect: '/#!/start',
-  failureRedirect: '/#!/new-account' //Behavior for first-time-logins -- **NEEDS TO BE A SEPARATE PAGE, WITH THE WAY MY RESOLVES ARE CURRENTLY SET UP?
+  failureRedirect: '/#!/home' //Behavior for first-time-logins -- **NEEDS TO BE A SEPARATE PAGE, WITH THE WAY MY RESOLVES ARE CURRENTLY SET UP?
 })); // defines what happens after authentication
 app.get('/api/logout', function(req, res, next) {
   req.logout();
@@ -141,7 +148,7 @@ app.post('/api/upload', genomeService.translateToJSON, genomeService.runBattery,
 
   genomeService.clearUserJSON()
   console.log('file length *** ' + req.body.file.length)
-  
+
   return res.status(200)
     .json('Results stored in database');
 })

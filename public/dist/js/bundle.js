@@ -32,10 +32,10 @@
           });
         }
       }
-    }).state('start', {
-      url: '/start',
-      controller: 'StartController',
-      templateUrl: './../views/start.html',
+    }).state('newuser', {
+      url: '/newuser',
+      controller: 'newUserController',
+      templateUrl: './../views/newuser.html',
       resolve: {
         user: function user(AuthService, $state) {
 
@@ -51,6 +51,31 @@
               isAuthed: false
             };
             console.log("start resolve user", currentUser);
+            $state.go('home');
+            return currentUser;
+          });
+        }
+      }
+    }).state('start', {
+      url: '/start',
+      controller: 'StartController',
+      templateUrl: './../views/start.html',
+      resolve: {
+        user: function user(AuthService, $state) {
+
+          return AuthService.getUser().then(function (response) {
+            console.log('getUser response', response);
+            var currentUser = {
+              userId: response.userid,
+              userName: response.username,
+              isAuthed: true
+            };
+            return currentUser;
+            console.log('currentUser', currentUser);
+          }).catch(function (error) {
+            var currentUser = {
+              isAuthed: false
+            };
             $state.go('home');
             return currentUser;
           });
@@ -460,6 +485,13 @@
     };
   } // END OF CTRL FUNC
 })(); // END OF IIFE
+'use strict';
+
+(function () {
+  angular.module('app').controller('newUserController', newUserController);
+
+  function newUserController($scope) {}
+})();
 'use strict';
 
 (function () {

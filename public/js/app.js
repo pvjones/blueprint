@@ -36,10 +36,10 @@
           }
         }
       })
-      .state('start', {
-        url: '/start',
-        controller: 'StartController',
-        templateUrl: './../views/start.html',
+      .state('newuser', {
+        url: '/newuser',
+        controller: 'newUserController',
+        templateUrl: './../views/newuser.html',
         resolve: {
           user: (AuthService, $state) => {
 
@@ -57,6 +57,34 @@
                   isAuthed: false
                 }
                 console.log("start resolve user", currentUser)
+                $state.go('home')
+                return currentUser
+              });
+          }
+        }
+      })
+      .state('start', {
+        url: '/start',
+        controller: 'StartController',
+        templateUrl: './../views/start.html',
+        resolve: {
+          user: (AuthService, $state) => {
+
+            return AuthService.getUser()
+              .then((response) => {
+                console.log('getUser response', response)
+                let currentUser = {
+                  userId: response.userid,
+                  userName: response.username,
+                  isAuthed: true
+                }
+                return currentUser
+                console.log('currentUser', currentUser)
+              })
+              .catch((error) => {
+                let currentUser = {
+                  isAuthed: false
+                }
                 $state.go('home')
                 return currentUser
               });

@@ -1296,7 +1296,12 @@ footer {
   footer .footer-box {
     width: 20%;
     text-align: center;
-    vertical-align: middle; }
+    vertical-align: middle;
+    z-index: 1; }
+    footer .footer-box a {
+      color: rgba(60, 199, 242, 0.9); }
+    footer .footer-box a:hover {
+      color: rgba(255, 255, 255, 0.8); }
   footer .fa {
     font-size: 4rem;
     margin-left: 30px;
@@ -1513,12 +1518,16 @@ input[disabled] + label:hover {
     margin-bottom: 10px; }
 
 .contact-us {
-  padding: 100px;
-  font-family: 'ProximaNova Condensed Semibold';
-  text-transform: uppercase; }
-  .contact-us .row {
+  padding: 80px;
+  font-family: 'ProximaNova Condensed Semibold'; }
+  .contact-us .contact-title {
+    text-transform: uppercase;
     text-align: center;
-    font-size: 4rem; }
+    font-size: 4rem;
+    margin: 0px; }
+  .contact-us .contact-subtitle {
+    font-size: 2rem;
+    text-align: center; }
 
 .well.ng-enter {
   transform: translateY(100%); }

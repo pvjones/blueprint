@@ -1,5 +1,6 @@
 node_modules
 data
+.vscode
 server/config*
 userTMP/*
 !userTMP/.gitkeep
